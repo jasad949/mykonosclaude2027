@@ -1,0 +1,26 @@
+# Secrets and personal Claude notes: never commit
+.env
+.env.*
+CLAUDE.local.md
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Dependencies and build output (common stacks)
+node_modules/
+dist/
+build/
+.next/
+out/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+coverage/
+
+# Logs and local data
+*.log
+tmp/
