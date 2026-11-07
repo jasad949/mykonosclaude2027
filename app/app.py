@@ -21,7 +21,9 @@ CHIP = {"sourced": "🟢 sourced", "assumption": "🟡 ASSUMPTION", "unknown": "
 
 
 def usd(x):
-    return "unknown" if x is None else "${:,.0f}".format(x)
+    if x is None:
+        return "unknown"
+    return "-${:,.0f}".format(-x) if x < 0 else "${:,.0f}".format(x)
 
 
 def load_cases():
@@ -97,6 +99,7 @@ if cont_known:
     overrides["contingency_remaining"] = {"value": st.sidebar.number_input("Contingency remaining ($)", value=0, step=5000), "status": "assumption"}
 
 scenario = {"label": HISTORICAL if not overrides else "What-if: custom inputs", "overrides": overrides}
+shown_facts = dict(facts, **overrides)  # evidence panel shows what-if values, not just the case file
 result = evaluate(copy.deepcopy(case), scenario)
 
 badge = "🟠 WHAT-IF" if result.get("is_what_if") else "📅 HISTORICAL as of " + case.get("as_of", "")
@@ -117,7 +120,7 @@ with left:
                         ("months_late", "Months behind budget", "months"), ("contingency_remaining", "Contingency remaining", "usd"),
                         ("city_holdback", "City final disbursement", "usd"), ("holdback_release_condition", "Release condition", None),
                         ("past_sponsorship_excluded", "Past sponsorship (excluded from new money)", "usd")]:
-        fact_line(facts, name, label, kind)
+        fact_line(shown_facts, name, label, kind)
 
 with mid:
     md("### Funding options")
