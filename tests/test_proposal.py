@@ -104,6 +104,13 @@ class TestWhatIfs(unittest.TestCase):
         self.assertEqual(r["advance_savings"]["net"], -1050)
         self.assertEqual(r["recommendation"]["verdict"], "gift_plus_existing_credit")
 
+    def test_consent_override_keeps_section_number(self):
+        r = evaluate(CASE, SCENARIOS["What-if: foundation says yes, city consents, $2,000 deal cost"])
+        self.assertIn("City Sec. 7.13 consent", r["evidence_needed"])
+        s = with_overrides("What-if: city refuses", assignment_consent={"value": False, "status": "assumption"})
+        self.assertIn("City consent to assign (Sec. 7.13) refused",
+                      opt(evaluate(CASE, s), "gift_plus_foundation_advance")["blockers"])
+
     def test_both_no_is_no_bridge(self):
         s = with_overrides("What-if: nothing works",
                            existing_line_available={"value": 0, "status": "assumption", "verified_current": True},

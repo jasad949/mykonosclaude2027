@@ -130,7 +130,9 @@ def evaluate(case, scenario):
     # Needs
     permanent, perm_raw = _permanent_need(facts)
     temp_raw = _num(facts, "city_holdback")
-    release_loc = _locator(facts, "holdback_release_condition", "")
+    case_facts = case.get("facts") or {}
+    # What-if overrides carry no source; keep the documented section number from the case.
+    release_loc = _locator(facts, "holdback_release_condition", "") or _locator(case_facts, "holdback_release_condition", "")
     temporary = {
         "value": _money(temp_raw),
         "status": _status(facts, "city_holdback"),
@@ -173,7 +175,7 @@ def evaluate(case, scenario):
         blockers_a.append("Existing line room %s is less than the %s timing gap" % (_usd(room), _usd(temp_raw)))
 
     # Option B feasibility
-    consent_loc = _locator(facts, "assignment_consent", "")
+    consent_loc = _locator(facts, "assignment_consent", "") or _locator(case_facts, "assignment_consent", "")
     consent_name = "City consent to assign" + (" (%s)" % consent_loc if consent_loc else "")
     willing = _bool(facts, "foundation_willing")
     consent = _bool(facts, "assignment_consent")
