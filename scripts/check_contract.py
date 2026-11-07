@@ -82,8 +82,11 @@ def main():
     case_path = Path(args.case) if args.case else C / "example_case.json"
     case = load(case_path)
     errs = check_case(case)
-    print("Schema %s: %s" % (case_path.relative_to(ROOT) if case_path.is_absolute() else case_path,
-                             "PASS" if not errs else "FAIL"))
+    try:
+        shown = case_path.resolve().relative_to(ROOT)
+    except ValueError:  # a case file outside the repo, e.g. a review worktree
+        shown = case_path
+    print("Schema %s: %s" % (shown, "PASS" if not errs else "FAIL"))
     for e in errs:
         print("  - " + e)
 
