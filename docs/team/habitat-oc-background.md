@@ -1,5 +1,10 @@
 # Background: Habitat for Humanity of Orange County (public sources)
 
+> **Context, not the brief.** Written Nov 6, before the lanes were revealed. The event's brief
+> (`docs/background.md`, `lanes/`) does not mention Habitat. Habitat OC is one example of the
+> nonprofits that build affordable ownership homes. Use this only as color on how one such
+> nonprofit selects buyers. Every figure here is unverified.
+
 Pre-event research from public web pages, checked 2026-11-06. **It chooses no product.** Anything
 here can be stale or wrong, so confirm it with Habitat OC staff before relying on it. Never
 hardcode these figures into the product (see `EVENT_BRIEF.md`, "Financial figures").

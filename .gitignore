@@ -24,3 +24,8 @@ coverage/
 # Logs and local data
 *.log
 tmp/
+
+# From the organizers' starter repo: never commit personal information
+real-data/
+private/
+*.zip

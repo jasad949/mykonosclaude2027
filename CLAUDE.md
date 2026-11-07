@@ -1,126 +1,133 @@
-# CLAUDE.md — one-day hackathon build
+# CLAUDE.md: Team Mykonos 2027, Claude Impact Lab (UCI × SoCal Affordable Housing)
 
-Default operating rules for a team building, testing and demonstrating a product in one day.
-**Precedence:** organizer instructions, then this project's spec (the Project facts below and any
-spec they link to), then these notes. Product and architecture come from the spec, never from
-these notes. `docs/HACKATHON_PLAYBOOK.md` (reasoning), `docs/TEAM_WORKFLOW.md` (shared-repo
-process), `docs/EVENT_BRIEF.md` (event context) and `docs/BACKGROUND.md` (public research on
-Habitat OC, unverified) hold the detail. `TEAM.md` holds owners and checkpoints; `NOTES.md` the
-running status.
+This repo is the team's **single source of truth**. It holds the organizers' full lane repo, the
+event hub, the kickoff slides, our decisions and our running status. Answer from these files
+before going to the web. Every teammate's Claude reads this file first.
 
-## Objective
+**Precedence:** organizer instructions given today → the organizers' material (`docs/*.md`,
+`lanes/`, `docs/event/`) → the Project facts below → our general notes (`docs/team/`).
 
-Ship one working, demonstrable vertical slice: a real user action going through every layer the
-product needs, and producing a real result. One finished path beats five half-built features.
+## Before you do anything in this repo
 
-## Project facts (fill in; never invent)
+1. `git fetch origin` and compare with `origin/main` (`git log --oneline HEAD..origin/main`).
+   Teammates push all day; a local copy is stale within the hour.
+2. Read `NOTES.md` (status, newest first) and `TEAM.md` (who owns what).
+3. If files changed under you, re-read them before editing. Never discard or overwrite changes you
+   didn't make. Ask instead.
 
-- Problem, target user, and the stakeholder who confirmed it: _TBD_
+## The event (verified Nov 7; details in `docs/event/`)
+
+- **Deadline: 2:30 PM PT today.** One submission per team on the hub: public GitHub repo with a
+  README following `templates/TEAM-README.md`, a demo video (30 s ideal, 2 min max, *made with
+  Claude's help*), and the form. Everything pushed to `main` by 2:30; later commits are flagged.
+- **The video picks the finalists.** At 2:30 judges watch every video and pick 10. Only those 10
+  demo live (3:00 PM) and get scored. Treat the video as a deliverable, not an afterthought.
+- **Scoring:** four equal areas, 1–5 each, ties go to Impact.
+  - **Impact:** a nonprofit or city would use it next month to help get homes built.
+  - **Works:** live demo on real data, sources shown. Rough and working beats polished.
+  - **Scale:** a believable path to the next 100 projects.
+  - **Innovation:** a new way to see or solve the problem. Bending the brief is allowed.
+  Slides without a working demo do not place.
+- **Judges:** Ed Coulson (UCI Center for Real Estate), Michael Imerman (FinTech professor),
+  Noah Samuels (Design & Development), Jason Bigman (Anthropic), Travis Johnson (host, wrote the
+  brief). Expect scrutiny of real-estate and finance correctness.
+- **The problem:** what the family can pay + public subsidies + fundraising − cost to create the
+  home = $0. In OC the cost side wins by six figures per home, and land-to-keys takes about four
+  years. Lane 1 **Find it** (land), Lane 2 **Clear it** (time), Lane 3 **Fund it** (closing the
+  gap). See `docs/background.md` and `lanes/*/README.md`.
+
+## Rules that do not bend (from the organizers' `CLAUDE.md`, verbatim in `docs/event/upstream-CLAUDE.md`)
+
+- **Never invent a statute, number, fee, address or parcel fact.** No made-up section numbers,
+  dollar amounts, fee schedules, deadlines, zoning codes, APNs or street addresses. If a source
+  doesn't say, the answer is "unknown". Say it plainly.
+- **Label assumptions.** A number the team doesn't have gets marked `ASSUMPTION` in the code, the
+  UI and the README, with what it's based on.
+- **Cite sources.** Every claim about a law, program, rate or dataset carries its source: a URL, a
+  section number and the date it was checked. Each lane's slide has its own rule:
+  - Find it: cite the law and dataset behind every site.
+  - Clear it: cite the statute or city rule behind every step, and show both where they disagree.
+  - Fund it: label every assumed number.
+- **When sources disagree or look stale, show it.** Don't pick silently. Laws get renumbered (ADU
+  law moved from Gov Code 65852.2 to 66310–66342) and income limits get revised mid-year (HCD 2026
+  State limits were revised June 23, 2026).
+- **No personal information.** Nothing real about a tenant, buyer, resident or applicant. If
+  something looks like a real person's personal information, stop, say so, don't process, save or
+  commit it, and tell an organizer. Test with made-up people and say they're made up.
+- **No scraping at volume.** Use public or provided data only. Prefer downloads, documented APIs
+  and cached copies. Respect each source's terms. No private plans or blueprints.
+- **No secrets in git.** Keys go in `.env` (ignored). `env.example` lists names only.
+- **Prototype only.** Never file an application, send an email, text or letter, or change any real
+  system. Draft it; don't send it.
+- **Not legal, financial or lending advice.** Anything user-facing says it's a prototype and points
+  to a professional for decisions.
+- Entries marked UNVERIFIED in `lanes/*/data/DATA-SOURCES.md` are leads, not facts.
+  `lanes/3-fund-it/data/synthetic-example-deal.json` and `lanes/*/scenarios.json` are made up:
+  never present them as real.
+
+## Project facts (fill in as the team decides; never invent)
+
+- Lane: _TBD_
+- The one real user and their before/after: _TBD_
 - The one demo path (input → visible result): _TBD_
-- Acceptance criteria, judging rules, submission deadline and format: _TBD_
-- Stack and delivery form, chosen for this project: _TBD_
-- Owners: who owns which directories and the interface contract: _TBD_
-- Commands that have actually run successfully here (setup / run / test): _none yet_
+- Acceptance checks ("doing X shows Y within Z s"): _TBD_
+- Stack and delivery form: _TBD_
+- Owners: see `TEAM.md`
+- Commands that have actually run successfully here: `scripts/smoke_claude_api.sh` failure paths
+  only (no key yet). Its success path is unverified.
 
-## Before writing code
+## How we work today
 
-1. Restate the problem, the user and the demo path in five lines or fewer. Ask when an ambiguity
-   changes what gets built. Otherwise state the assumption in one line and continue.
-2. Write the acceptance criteria as observable checks ("doing X shows Y within Z s").
-3. Prove the riskiest assumption first with the smallest real test. That might be an API, model
-   quality, data availability, platform capability, or an unfamiliar technique.
-4. Split the work into increments, each of which ends in something runnable.
-
-Plan explicitly only for multi-module changes, an undecided interface, or after two failed attempts.
-
-## Technology and architecture
-
-- Choose the stack the team can debug fastest that meets the requirements. If the requirements
-  force something unfamiliar, spike it within the first hour.
-- Add no infrastructure (extra services, queues, caches, stores) unless the demo path needs it.
-- Add dependencies sparingly. Pin them, skip prereleases, and make no major upgrades today.
-- Keep core logic in plain functions, testable without the UI, network or clock.
-- No speculative abstraction or "for later" configurability.
-
-## Shared repository (see TEAM_WORKFLOW.md)
-
-- Work on your own branch in your own checkout. Never commit straight to `main` (only the
-  integrator's first skeleton push does). Known-good states are tags, not branches.
-- Edit only files you own. Changes to the interface contract, shared config or dependencies need
-  their owner's agreement and go in their own commit.
-- Before starting a task, and before saying anything about repository state, run `git fetch` and
-  compare with `origin`. A local branch may be many commits stale.
-- If files changed under you, re-read them before editing. Never discard or overwrite changes you
-  didn't make. Ask instead.
-
-## Working loop
-
-- Make small changes, run them, and read the actual output: exit codes, warnings, skipped tests,
-  "0 tests ran". Never report success based on code that hasn't been executed.
-- When something fails, reproduce it, read the real value, and check the premise before theorising.
-- If a fix fails twice, write down both attempts and what they ruled out before trying a third.
-- Before blaming product code, rule out stale builds, dev-mode flags, a full disk, colliding test
-  runs, expired tokens and missing env vars.
-- Installed is not wired. Confirm a new library or provider actually takes effect in the running app.
-- Don't rewrite working code for looks. Don't expand scope without being asked.
-- If a command was interrupted, check whether its effect (deploy, push, paid call) happened anyway.
-
-## Verification and tests
-
-Test by risk and remaining time: (1) a fast smoke test of the demo path; (2) exact-assertion
-tests on critical logic; (3) a regression test per bug fixed, failing first; (4) failure cases
-the demo can hit; (5) contract tests where teammates' parts meet.
-
-- Watch critical tests fail once. Commit, break the code on purpose, see red, restore with version
-  control. Skip this when under an hour remains.
-- Never mock the unit under test. Mock only external or non-deterministic boundaries.
-- A paid or slow dependency gets two smoke tests: a fast one against a recorded real response, and
-  a live one at checkpoints.
-- Proxies (mocks, a different platform build) aren't proof. Verify what the *running* app is
-  connected to (which environment, data and keys), not what a config file intends.
-
-## Data, AI output, secrets, cost
-
-- Use synthetic or de-identified data. Never put real personal or financial records into
-  prompts, logs, fixtures or git unless the data owner explicitly allows it.
-- Never commit secrets or embed them in anything distributed to users. Missing required config
-  fails loudly. An optional integration without credentials says "not configured".
-- Every outbound call gets a timeout, bounded input and error handling. Don't blindly retry
-  operations that may already have been charged or applied.
+- Ship one working vertical slice: one real user action through every layer the product needs,
+  producing a real result on real public data. One finished path beats five half-built features.
+- Before code: restate user, problem and demo path in five lines. Ask when an ambiguity changes
+  what gets built; otherwise state the assumption in one line and continue.
+- Prove the riskiest assumption first (data access, model quality, an API) with the smallest real
+  test.
+- Small changes. Run them and read the real output: exit codes, warnings, "0 tests ran". Never
+  report success on code that hasn't run. Every "works" points to evidence.
+- If a fix fails twice, write down both attempts before trying a third.
+- Choose the stack the team can debug fastest. No extra infrastructure. Pin dependencies.
+- Core logic in plain functions, testable without UI, network or clock.
+- Every outbound call gets a timeout, bounded input and error handling. Cache public data locally
+  so the demo doesn't depend on a slow city server.
 - Model output is a suggestion. Validate it, show which inputs were missing or assumed, and let a
-  person confirm anything consequential.
-- The UI must claim only what actually happened ("saved", "sent", "complete").
-- Use dedicated keys with spend limits. Log real usage. Check model names and prices in current docs.
+  person confirm anything consequential. The UI claims only what actually happened.
+- Use event-credit keys with spend limits. Check model names and prices in current docs.
 
-## Checkpoints and demo
+## Shared repository (details: `docs/team/TEAM_WORKFLOW.md`)
 
-- Commit every working increment. Merge to `main` only through review, at agreed checkpoints.
-- Tag known-good states of `main` (`demo-<n>`), and build or deploy only from clean, committed trees.
-- After feature freeze, fix demo-path bugs only.
-- Rehearse from a cold start on the real environment. Have a labelled fallback (a recording or a
-  cached real result), never a fake result presented as live.
+- Each person works on their own branch (`feat/<name>`) in their own checkout, and never in the
+  same folder as another Claude session. Merge to `main` by pull request at checkpoints.
+- Edit only files you own (see `TEAM.md`). Shared files (`CLAUDE.md`, dependencies, the interface
+  contract) change only in their own commit, with the owner's agreement.
+- Commit every working increment and push at least hourly.
+- **Keep `NOTES.md` current:** after each meaningful step, add what was done and verified, what's
+  broken, and what's next. This is how teammates' Claudes stay in sync.
+- Tag known-good states of `main` as `demo-<n>`. After feature freeze, fix demo-path bugs only.
+- The repo is public: check no personal information and no keys are in it or its history.
+
+## Where things are
+
+| Path | What |
+|---|---|
+| `NOTES.md`, `TEAM.md` | Live status and owners/checkpoints. Read first |
+| `docs/event/` | Hub snapshot, kickoff-slides summary, the organizers' README and CLAUDE.md verbatim, provenance |
+| `docs/challenge-brief.pdf`, `docs/kickoff-slides.pdf` | The 3-page brief and the 35 kickoff slides |
+| `docs/background.md`, `docs/glossary.md` | The $0 equation, the laws, the terms |
+| `docs/ground-rules.md`, `docs/judging.md`, `docs/submission.md` | Rules, scoring, what to hand in |
+| `docs/getting-started.md`, `docs/first-hackathon.md` | Setup and orientation |
+| `lanes/<n>-*/README.md` | Each lane's problem, who's stuck, ideas (not a spec) |
+| `lanes/<n>-*/data/DATA-SOURCES.md` | Sourced data lists, VERIFIED/UNVERIFIED |
+| `lanes/1-find-it/data/pathways.json`, `lanes/2-clear-it/data/oc-cities.json`, `timeline.json` | Starter lists (summaries are not the rule) |
+| `lanes/3-fund-it/data/synthetic-example-deal.json` | Made-up one-home bill ($535k cost, $95k gap) |
+| `lanes/*/scenarios.json` | Made-up users to design and test against |
+| `templates/TEAM-README.md` | What our final README must cover |
+| `docs/team/` | Our pre-event playbook, team workflow and research (lower precedence) |
+| `scripts/smoke_claude_api.sh` | One real Claude API call to check a key works |
 
 ## Communication
 
-Lead with the outcome. Then give what was verified and how, what wasn't and why, and any
-assumptions, blockers or stubbed features. Every "works" points to evidence. Keep this file short
-and correct, and change it only through a reviewed commit.
-
-## Hackathon Development Workflow
-
-Optimize for a working, demonstrable product within the available time.
-
-- Translate each major feature into explicit, observable acceptance criteria.
-- For uncertain integrations, prove the critical capability with a small end-to-end experiment before expanding the implementation.
-- Work in small, verifiable increments. Implement, run, inspect results, and correct failures before moving to unrelated tasks.
-- Independently investigate ordinary errors and apply well-supported fixes without requiring the user to approve each debugging step.
-- If two materially different attempts fail, stop repeating fixes. Summarize the evidence, likely root causes, and recommended next action.
-- Ask for user input when product requirements are genuinely ambiguous, a decision has substantial consequences, or a proposed action is difficult to reverse.
-- Avoid lengthy planning for minor, reversible changes.
-- Prefer a reliable core workflow over additional features.
-- Maintain a short record of completed features, known defects, test results, and the next priority.
-- Preserve a stable, working state before making risky changes.
-- Reserve sufficient time for an actual end-to-end demonstration, including realistic failure handling and submission requirements.
-- Do not declare a feature complete without observable evidence. Report what was tested and what remains unverified.
-
-User decisions should focus on product direction, tradeoffs, and acceptance of results rather than routine implementation mechanics.
+Lead with the outcome. Then what was verified and how, what wasn't and why, and any assumptions,
+blockers or stubbed parts. Keep this file short and correct; change it only through a reviewed
+commit.

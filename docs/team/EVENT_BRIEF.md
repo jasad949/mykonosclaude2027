@@ -1,5 +1,13 @@
 # Event brief (provisional): Claude Impact Lab, UC Irvine, Nov 7, 2026
 
+> **Superseded on Nov 7.** This was written before the event, from the Luma and Merage pages.
+> The real rules, schedule, judging and lanes are in [`docs/event/`](../event/README.md), the lane
+> pages in `lanes/` and `docs/judging.md` / `docs/submission.md`. Several "not stated anywhere"
+> items below are now answered there (deadline 2:30 PM, judging criteria, team size up to 5,
+> public repo required, data rules). The product is about affordable homes in OC generally, not a
+> Habitat for Humanity tool. Still useful here: the housing-data risks and the product selection
+> criteria.
+
 Context for the team and for Claude. It chooses no product. Organizer instructions given at the
 event override everything here. Checked against the two official pages on 2026-11-05.
 
