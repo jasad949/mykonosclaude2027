@@ -80,11 +80,13 @@ def source_link(fact, short=None):
         esc(url), esc(label), esc(src.get("locator", "")), esc(src.get("date", "unknown")))
 
 
-def proposal_html(case, scenario, result, facts):
+def proposal_html(case, scenario, result, facts, fixture=False):
     """Printable one-page HTML, entirely from the evaluated snapshot and its evidence."""
     p, t, s = result["permanent_need"], result["temporary_need"], result["advance_savings"]
     st = statuses(result, facts)
     mode = "WHAT-IF — user assumptions, not verified offers" if result["is_what_if"] else "Historical (as of %s)" % case["as_of"]
+    if fixture:
+        mode = "CONTRACT FIXTURE — older saved example, not the current case"
     rows = []
     for i, option in enumerate(result["options"]):
         funds = []

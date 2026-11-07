@@ -189,7 +189,7 @@ def main():
         st.markdown("**Evidence still needed**")
         html('<ul class="evidence">%s</ul>' % "".join('<li>%s</li>' % esc(e) for e in evidence(result, facts)))
         if st.button("Draft proposal", type="primary", use_container_width=True):
-            st.session_state["proposal_html"] = proposal_html(case, scenario, result, facts)
+            st.session_state["proposal_html"] = proposal_html(case, scenario, result, facts, fixture=fixture)
             st.session_state["proposal_snapshot"] = snapshot
         st.caption("One-page draft · generated locally · not sent")
     if "proposal_html" in st.session_state:

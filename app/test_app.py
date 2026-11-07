@@ -86,6 +86,7 @@ class FundingDeskTest(unittest.TestCase):
             at.button[0].click().run()
             self.assertFalse(at.exception)
             self.assertIn('upper bound', at.session_state['proposal_html'])
+            self.assertIn('CONTRACT FIXTURE', at.session_state['proposal_html'])
 
     def test_legacy_fixture_status_fallback_and_html_escaping(self):
         case = json.loads((ROOT / 'contracts/example_case.json').read_text())
