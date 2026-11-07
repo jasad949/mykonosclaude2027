@@ -1,0 +1,16 @@
+{
+  "contract_version": "1",
+  "scenarios": [
+    {"label": "Historical (as documented)", "overrides": {}},
+    {"label": "What-if: existing line has verified room",
+     "overrides": {"existing_line_available": {"value": 825000, "status": "assumption", "verified_current": true}}},
+    {"label": "What-if: existing line is full",
+     "overrides": {"existing_line_available": {"value": 0, "status": "assumption", "verified_current": true}}},
+    {"label": "What-if: foundation says yes, city consents, $2,000 deal cost",
+     "overrides": {
+       "foundation_willing": {"value": true, "status": "assumption"},
+       "assignment_consent": {"value": true, "status": "assumption"},
+       "foundation_deal_cost": {"value": 2000, "status": "assumption"}
+     }}
+  ]
+}

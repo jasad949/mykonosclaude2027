@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/session_start.sh\" 2>/dev/null || true",
+            "timeout": 20,
+            "statusMessage": "Fetching team repo state"
+          }
+        ]
+      }
+    ]
+  }
+}
