@@ -1,0 +1,10 @@
+# Owner: Jawad. Pins the light palette so browser dark mode does not recolor widgets.
+[theme]
+base = "light"
+primaryColor = "#1F5C4A"
+backgroundColor = "#FAF8F3"
+secondaryBackgroundColor = "#F4F1EA"
+textColor = "#172C34"
+
+[browser]
+gatherUsageStats = false
