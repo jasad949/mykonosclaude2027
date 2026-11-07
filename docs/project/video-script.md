@@ -21,7 +21,7 @@ wide desktop size; rehearse once. Narration is about 70 words; leave time for cl
 - Use the real result. Do not narrate confirmed funding, verified consent, or achieved savings.
 - If mentioning Claude, accurately describe the team's Claude-assisted extraction/build work.
   Have Jawad/Claude review this storyboard before submission to satisfy the event's
-  “made with Claude's help” requirement; this script itself was drafted with ChatGPT/Codex.
+  “made with Claude's help” requirement; this version combines ChatGPT/Codex drafting with Jawad's Claude-assisted storyboard.
 
 ## Delivery checklist — not yet completed
 
@@ -33,3 +33,15 @@ wide desktop size; rehearse once. Narration is about 70 words; leave time for cl
 
 No recording or upload is claimed by this script. The final video URL belongs in Jawad's README
 and submission, once the upload is confirmed.
+
+## Jawad storyboard contribution and accuracy edits
+
+This script incorporates Jawad's Claude-assisted historical → needs → sources → what-if → proposal
+sequence from main. His optional comparison line is: “Gift plus our credit line, or gift plus a
+foundation advance?” Keep the finance lead as the user, and the dated-case badge visible.
+
+When using the numeric take, say “modeled upper bound” for $150,211 **ASSUMPTION**, and “city
+holdback” for $220,000 **SOURCED**. The city release also requires lien-free completion, not only
+closings. Do not say there are exactly four missing facts: the current evidence list is longer.
+For the assumed zero-rate advance, $4,950 **ASSUMPTION** is the break-even deal cost; a nonzero
+foundation rate changes it. These edits keep the narration consistent with the new rate control.

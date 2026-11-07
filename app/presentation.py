@@ -21,7 +21,9 @@ def chip(status):
 
 
 def usd(value):
-    return "Unknown" if value is None else "${:,.0f}".format(value)
+    if value is None:
+        return "Unknown"
+    return "-${:,.0f}".format(-value) if value < 0 else "${:,.0f}".format(value)
 
 
 def amount(value, status):

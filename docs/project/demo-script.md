@@ -50,3 +50,27 @@ to restore the dated case regardless of widget values.
 Nabheel drives the screen; Jawad records and submits. Feature freeze 1:40 PM PT. Recording window
 1:40–2:05 PM PT. Submission deadline 2:30 PM PT. Finalist live demo is 3:00 PM PT.
 If launch fails, use the verified local checkout; disclose any fixture fallback clearly.
+
+## Finalist extension — incorporated from Jawad's Claude-assisted script
+
+Allow about two and a half minutes: user/problem, needs, options, what-if, proposal, finding,
+and scale. Start with: “The facts that decide how to close the shortfall are spread across an
+audit, a city report and a council agreement.”
+
+For A versus B, show the existing annual rate of 4.50% **SOURCED** and six-month interest of
+$4,950 **ASSUMPTION**, versus the foundation's 0% rate **ASSUMPTION** and unknown deal cost.
+Repayment needs completion, closings and the lien-free period under the grant's section 4.2.
+Assignment consent is still unknown under section 7.13.
+
+For the alternate A outcome, return foundation willingness to Unknown; choose Line room verified?
+Yes and $825,000 **ASSUMPTION**. The model chooses existing credit. Explain that this is a
+hypothetical verification, not the historical audit balance being certified current.
+
+Jawad's finding: the Affordable Housing Agreement prices at the prevailing market rate
+(section 1.1.34), so a buyer buydown does not shrink Habitat's modeled gap. Keep this as team
+research context, not a new UI calculation. For scale, describe extraction from the next project's
+documents with human quote verification as the next step; the live extractor has not been demonstrated.
+
+Fallback: the integrator's known-good `demo-3` tag includes the prior screen, not this PR's new
+controls. Run it in a separate worktree and use its matching script. Play an uploaded recording
+only after someone confirms that recording exists and its link works.
