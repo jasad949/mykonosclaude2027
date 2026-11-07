@@ -95,7 +95,7 @@ def sidebar(facts, fixture):
 def main():
     st.set_page_config(page_title="Washington Avenue · Funding desk", page_icon="🏠", layout="wide")
     html('''<style>
-    .block-container{padding:2.2rem 2rem 1rem;max-width:1700px} h1{font-size:1.9rem!important;padding-bottom:.3rem} h3{font-size:1.05rem!important} p{font-size:.88rem;line-height:1.45;margin-bottom:.5rem}
+    .block-container{padding:3.5rem 2rem 1rem;max-width:1700px} h1{font-size:1.9rem!important;padding-bottom:.3rem} h3{font-size:1.05rem!important} p{font-size:.88rem;line-height:1.45;margin-bottom:.5rem}
     .chip{display:inline-block;border:1px solid;border-radius:4px;padding:1px 5px;font:600 10px/1.6 sans-serif;vertical-align:middle;white-space:nowrap}
     .sourced{color:#14604c;background:#e7f3ed}.assumption{color:#7c5100;background:#fff2d5}.unknown{color:#a32432;background:#fff0f0}
     .metric{border:1px solid #cbdad6;border-left:4px solid #1f7160;border-radius:8px;padding:13px;margin-bottom:12px}
@@ -163,7 +163,7 @@ def main():
                 rate = facts[rate_name].get("value")
                 html('<p>Annual rate: %s %s</p>' % ("Unknown" if rate is None else "{:.2f}%".format(rate * 100), chip(fact_status(facts, rate_name))))
                 html('<p>Interest: %s</p><p>Deal cost: %s</p>' % (amount(opt["interest_cost"], states["a" if i == 0 else "b"]), amount(opt["deal_cost"], "assumption" if i == 0 else states["cost"])))
-                html('<p class="note">Principal repaid from city final disbursement. Interest is an additional cost.</p>')
+                html('<p class="note">Principal repaid from city final disbursement. Nonprofit pays interest and deal costs.</p>')
                 for blocker in opt.get("blockers", []):
                     html('<div class="bad">• %s</div>' % annotated(blocker))
         st.markdown("**Advance savings after costs**")

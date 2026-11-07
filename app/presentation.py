@@ -122,7 +122,7 @@ h1{font-size:23px;margin:4px 0} h2{font-size:13px;margin:12px 0 4px} p{margin:5p
 <h2>Savings from the advance</h2><p>Gross interest saved %s; less deal cost %s; net savings %s. Break-even deal cost %s. Savings compare costs only; they do not reduce the gift request automatically.</p>
 <h2>Recommendation: %s</h2><p>%s</p><p>%s</p>
 <h2 class="evidence">Evidence still needed before commitment</h2><ul class="evidence">%s</ul>
-<h2>Model inputs and limits</h2><p>%s</p><p>Flat balance and simple interest; this is modeled delay carry, not the full project budget. Public loan data may be stale. Release and repayment depend on completion and buyer closings.</p>
+<h2>Model inputs and limits</h2><p>%s</p><p>Flat balance and simple interest; this is modeled delay carry, not the full project budget. Public loan data may be stale. Repayment also depends on all documented release conditions, including lien-free completion. The nonprofit pays interest and deal costs.</p>
 <h2>Public evidence</h2><div class="sources">%s</div>
 <footer>Prototype, not financial or legal advice. Consult qualified finance and legal professionals. No lender or foundation commitment is implied. Generated locally from the displayed result; no API call.</footer></body></html>''' % (
         esc(mode), esc(case["title"]), chip("sourced"), amount(p["value"], p["status"]),
