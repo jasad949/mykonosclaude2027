@@ -36,14 +36,27 @@ def load_cases():
     return cases
 
 
-def fact_line(facts, name, label):
+def md(text):
+    """Markdown with literal dollar signs (Streamlit renders $...$ as LaTeX otherwise)."""
+    st.markdown(text.replace("$", "\\$"))
+
+
+def fact_line(facts, name, label, kind=None):
     f = facts.get(name, {})
     src = f.get("source") or {}
     where = " · {}, {}".format(src.get("doc", ""), src.get("locator", "")) if src else ""
     val = f.get("value")
-    shown = usd(val) if isinstance(val, (int, float)) and not isinstance(val, bool) and val > 1 else val
-    st.markdown("**{}**: {} {}{}".format(label, shown if shown is not None else "unknown",
-                                          CHIP.get(f.get("status"), ""), where))
+    if val is None:
+        shown = "unknown"
+    elif kind == "usd":
+        shown = usd(val)
+    elif kind == "pct":
+        shown = "{:.2f}%".format(val * 100)
+    elif kind == "months":
+        shown = "{} months".format(val)
+    else:
+        shown = val
+    md("**{}**: {} {}{}".format(label, shown, CHIP.get(f.get("status"), ""), where))
 
 
 st.set_page_config(page_title="Gap-to-Proposal", layout="wide")
@@ -93,51 +106,51 @@ st.subheader(badge)
 left, mid, right = st.columns([1, 1.4, 1.1])
 
 with left:
-    st.markdown("### Needs")
+    md("### Needs")
     pn, tn = result["permanent_need"], result["temporary_need"]
     st.metric("Permanent fundraising need", usd(pn["value"]) + (" (upper bound)" if pn.get("upper_bound") else ""))
     st.caption(CHIP.get(pn["status"], "") + " · " + pn.get("note", pn.get("formula", "")))
     st.metric("Temporary cash need (repaid)", usd(tn["value"]))
     st.caption(CHIP.get(tn["status"], "") + " · repaid from: " + tn.get("repaid_from", "unknown"))
-    st.markdown("#### Evidence behind these")
-    for name, label in [("construction_line_balance", "Construction line drawn"), ("construction_line_rate", "Construction line rate"),
-                        ("months_late", "Months behind budget"), ("contingency_remaining", "Contingency remaining"),
-                        ("city_holdback", "City final disbursement"), ("holdback_release_condition", "Release condition"),
-                        ("past_sponsorship_excluded", "Past sponsorship (excluded from new money)")]:
-        fact_line(facts, name, label)
+    md("#### Evidence behind these")
+    for name, label, kind in [("construction_line_balance", "Construction line drawn", "usd"), ("construction_line_rate", "Construction line rate", "pct"),
+                        ("months_late", "Months behind budget", "months"), ("contingency_remaining", "Contingency remaining", "usd"),
+                        ("city_holdback", "City final disbursement", "usd"), ("holdback_release_condition", "Release condition", None),
+                        ("past_sponsorship_excluded", "Past sponsorship (excluded from new money)", "usd")]:
+        fact_line(facts, name, label, kind)
 
 with mid:
-    st.markdown("### Funding options")
+    md("### Funding options")
     cols = st.columns(2)
     for col, opt in zip(cols, result["options"]):
         with col:
-            st.markdown("**{}**".format(opt["label"]))
-            st.markdown("Feasible: **{}**".format(opt["feasible"]))
+            md("**{}**".format(opt["label"]))
+            md("Feasible: **{}**".format(opt["feasible"]))
             for m in opt["money"]:
                 kind = "repayable" if m["repayable"] else "gift (not repaid)"
                 extra = " · repaid from " + m["repaid_from"] if m.get("repaid_from") else ""
-                st.markdown("- {}: **{}** ({}){}".format(m["provider"], usd(m["amount"]), kind, extra))
-            st.markdown("Interest cost: {}".format(usd(opt["interest_cost"])))
-            st.markdown("Deal cost: {}".format(usd(opt["deal_cost"])))
+                md("- {}: **{}** ({}){}".format(m["provider"], usd(m["amount"]), kind, extra))
+            md("Interest cost: {}".format(usd(opt["interest_cost"])))
+            md("Deal cost: {}".format(usd(opt["deal_cost"])))
             for b in opt.get("blockers", []):
-                st.markdown("🔴 " + b)
+                md("🔴 " + b)
     s = result["advance_savings"]
-    st.markdown("#### What the advance saves")
-    st.markdown("Gross interest saved: **{}** · deal cost: **{}** · net: **{}** · worth it only if deal cost < **{}**".format(
+    md("#### What the advance saves")
+    md("Gross interest saved: **{}** · deal cost: **{}** · net: **{}** · worth it only if deal cost < **{}**".format(
         usd(s["gross"]), usd(s["deal_cost"]), usd(s["net"]), usd(s["break_even_deal_cost"])))
 
 with right:
     rec = result["recommendation"]
-    st.markdown("### Recommendation")
-    st.markdown("**Verdict: {}**".format(rec["verdict"]))
-    st.write(rec["text"])
+    md("### Recommendation")
+    md("**Verdict: {}**".format(rec["verdict"]))
+    md(rec["text"])
     if rec.get("conditions"):
-        st.markdown("Conditions:")
+        md("Conditions:")
         for c in rec["conditions"]:
-            st.markdown("- " + c)
-    st.markdown("### Evidence still needed")
+            md("- " + c)
+    md("### Evidence still needed")
     for e in result.get("evidence_needed", []):
-        st.markdown("🔴 " + (e if isinstance(e, str) else e.get("item", str(e))))
+        md("🔴 " + (e if isinstance(e, str) else e.get("item", str(e))))
     if st.button("Draft proposal"):
         gift = result["options"][0]["money"][0]["amount"]
         lines = [
