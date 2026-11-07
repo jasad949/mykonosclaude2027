@@ -1,25 +1,90 @@
-# Live demo script (finalists, 3:00 PM)
+# Live demo — Nabheel
 
-**Setup (before going on stage):** `bash scripts/run_demo.sh`, open http://localhost:8501, case =
-`data/cases/washington.json`, all sidebar inputs on their defaults (HISTORICAL badge showing).
-Fallback if `main` breaks: `git worktree add ../demo-stable demo-2`, then run the demo from there.
-Last resort: play the uploaded video.
+## Run and reset
 
-1. **User and problem (20 s).** "A nonprofit finance lead has one shortfall number. The facts that
-   decide how to close it are spread across an audit, a city report and a council agreement."
-2. **Needs (30 s).** Permanent need $150,211 (upper bound: contingency unknown) vs temporary need
-   $220,000 (the city pays it only after completion, all six closings and a lien-free period, §4.2).
-   Point at the source chips.
-3. **Options (30 s).** A: gift + existing 4.50% line, $4,950 interest. B: gift + foundation advance,
-   $0 interest but deal cost unknown, and the city must consent (§7.13). Gifts and loans never summed.
-4. **What-if (30 s).** Foundation willing = yes, city consents = yes, deal cost $2,000 → WHAT-IF badge,
-   verdict flips to the advance, net savings $2,950. Then set the foundation back to "unknown" and
-   "Existing line room" to "verified: has room" → verdict becomes gift + existing credit.
-5. **Proposal (20 s).** Click Draft proposal; read the evidence still needed.
-6. **The finding (15 s).** "A buyer rate buydown doesn't shrink this gap: the city prices homes at the
-   prevailing market rate (§1.1.34)."
-7. **Scale (15 s).** "Claude pulls the same facts from the next project's documents, with every
-   quote checked against the source."
+From a fresh clone, run `bash scripts/run_demo.sh`. No API key is needed. Open the local URL.
+Keep **Contract fixture preview** off and **Explore a what-if** off. The fixture preview reads
+`contracts/example_result.json` directly and is explicitly an older saved example, not the current case.
+The normal path evaluates `data/cases/washington.json` with `engine.proposal.evaluate(case, scenario)`.
 
-Be straight: the permanent need is an upper bound, the timing months are assumptions, and the
-extractor's live run is the only part not demonstrated today.
+## Clear answers on the opening screen
+
+The screen asks the finance lead's three questions directly: **How much do we need to raise?**,
+**How much do we only need to borrow?**, and **Which borrowing option makes sense?** The historical
+answer is a modeled gift need, a separate temporary borrowing need, and **Confirm terms first**.
+A short comparison table shows gifts, borrowing, interest, fees and availability. Detailed blockers,
+repayment conditions, source inputs and the complete evidence checklist are expandable.
+
+For a quick demo, click **Try foundation example**. This sets hypothetical willingness, consent,
+zero foundation rate, six months and $2,000 deal cost; all edited facts remain assumptions. The
+screen shows B and $2,950 assumed net savings. Open **Adjust assumptions** to vary the terms;
+turn **Explore a what-if** off to return to historical evidence. **Demo tools** contains the fixture.
+The housing image is AI-generated illustration, not a project photo or approved rendering.
+
+## Presenter path
+
+1. **User and problem:** “A nonprofit finance lead needs to distinguish a permanent fundraising
+   need from money that is only needed until the city pays.” Show the dated Washington Avenue case.
+2. **Evidence:** point to $150,211 **ASSUMPTION, upper bound** and $220,000 **SOURCED** temporary
+   principal. The former models delay interest, not the full project budget. Open Inputs, sources &
+   dates briefly: audit balance is historical; current loan status and contingency are unverified.
+3. **Comparison:** show A and B. Each has a separate gift row and repayable principal row.
+   Historical net savings is **UNKNOWN**, because deal cost is unknown. Neither financing offer
+   is confirmed. The evidence list remains red.
+4. **What-if:** turn on Explore a what-if; set foundation willing Yes, city consent Yes, Set deal
+   cost checked, $2,000 **ASSUMPTION**. At the existing assumed zero foundation rate and six-month
+   release period, the model shows $2,950 **ASSUMPTION** net savings. Point at the WHAT-IF badge.
+   Set the foundation rate to 2% **ASSUMPTION**: savings change to $750 **ASSUMPTION**.
+5. **Result:** click Draft proposal. The one-page draft preserves gifts versus repayable principal,
+   shows costs, conditional evidence and source links. Download the HTML and use its Print / Save
+   as PDF button if needed. Nothing is sent. Changing inputs clears the previous draft.
+
+## Alternate feasibility demonstration
+
+In what-if mode, Line room verified? Yes with $0 **ASSUMPTION** makes A infeasible. Foundation
+willing No makes B infeasible; the screen says neither bridge is feasible. Set Line room verified?
+Unknown to show that missing evidence is not equivalent to no capacity. Turn off Explore a what-if
+to restore the dated case regardless of widget values.
+
+## Claims and limits
+
+- Public case evidence is real; assumptions, offers and scenario “verification” are hypothetical.
+- Simple interest on a flat balance; no implied lender commitment or legal consent.
+- The construction loan maturity has passed in the public evidence; renewal must be checked.
+- Council-packet facts were verified by Hassan in the latest main update. Release also requires
+  lien-free completion; actual consent and closing dates remain unknown.
+- Prior sponsorship is excluded from new money, visible under Inputs, sources & dates.
+- Claude's extraction pipeline is a separate team component. This screen and proposal template
+  make no model calls. Do not claim this UI was built with Claude: Nabheel used ChatGPT/Codex.
+- Future scale: apply the same reviewed case contract to another project; do not claim that has
+  already been tested across a portfolio.
+
+## Handoff
+
+Nabheel drives the screen; Jawad records and submits. Feature freeze 1:40 PM PT. Recording window
+1:40–2:05 PM PT. Submission deadline 2:30 PM PT. Finalist live demo is 3:00 PM PT.
+If launch fails, use the verified local checkout; disclose any fixture fallback clearly.
+
+## Finalist extension — incorporated from Jawad's Claude-assisted script
+
+Allow about two and a half minutes: user/problem, needs, options, what-if, proposal, finding,
+and scale. Start with: “The facts that decide how to close the shortfall are spread across an
+audit, a city report and a council agreement.”
+
+For A versus B, show the existing annual rate of 4.50% **SOURCED** and six-month interest of
+$4,950 **ASSUMPTION**, versus the foundation's 0% rate **ASSUMPTION** and unknown deal cost.
+Repayment needs completion, closings and the lien-free period under the grant's section 4.2.
+Assignment consent is still unknown under section 7.13.
+
+For the alternate A outcome, return foundation willingness to Unknown; choose Line room verified?
+Yes and $825,000 **ASSUMPTION**. The model chooses existing credit. Explain that this is a
+hypothetical verification, not the historical audit balance being certified current.
+
+Jawad's finding: the Affordable Housing Agreement prices at the prevailing market rate
+(section 1.1.34), so a buyer buydown does not shrink Habitat's modeled gap. Keep this as team
+research context, not a new UI calculation. For scale, describe extraction from the next project's
+documents with human quote verification as the next step; the live extractor has not been demonstrated.
+
+Fallback: the integrator's known-good `demo-3` tag includes the prior screen, not this PR's new
+controls. Run it in a separate worktree and use its matching script. Play an uploaded recording
+only after someone confirms that recording exists and its link works.
