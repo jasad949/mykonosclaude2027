@@ -1,5 +1,5 @@
 <style>
-.block-container{padding:3.75rem 2rem 1rem;max-width:1600px}
+.block-container{padding:3rem 2rem 2rem;max-width:1240px}
 h1{font-size:2rem!important;letter-spacing:-.045em;padding-bottom:.35rem!important}
 h3{font-size:1.12rem!important;letter-spacing:-.02em}
 p{font-size:.9rem;line-height:1.45;margin-bottom:.4rem}
@@ -33,4 +33,5 @@ p{font-size:.9rem;line-height:1.45;margin-bottom:.4rem}
 [data-testid="stImage"] img{border-radius:12px}
 button[kind="primary"]{background:#205a45;border-color:#205a45;border-radius:8px}
 @media(max-width:750px){.block-container{padding:2rem 1rem}.metric{min-height:0}.comparison th,.comparison td{padding:8px}.savings{flex-wrap:wrap}}
+.case-title{margin:2px 0 12px} .mode{margin:0 0 18px} .metric{min-height:168px;margin-bottom:12px} [data-testid="stCaptionContainer"] p{font-size:.78rem;line-height:1.45;margin:0 0 4px} .source{margin-bottom:10px} .evidence li{font-size:12px;line-height:1.5} [data-testid="stExpander"]{margin-top:6px} h3{margin-top:1.6rem !important}
 </style>

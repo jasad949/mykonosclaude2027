@@ -130,15 +130,10 @@ def main():
     if st.session_state.get("proposal_snapshot") != snapshot:
         st.session_state.pop("proposal_html", None)
 
-    heading, picture = st.columns([3, 1], gap="large")
-    with heading:
-        html('<div class="brand">MYKONOS / HABITAT OC FUNDING DESK</div>')
-        st.title("What to raise. What to borrow.")
-        st.write("For Habitat’s finance lead: plan the gift request, compare borrowing, and draft a funding proposal.")
-        html('<div class="case-title">Washington Avenue · Santa Ana · 6 affordable homes %s</div>' % chip("sourced"))
-    with picture:
-        st.image(str(ROOT / "assets/neighborhood-illustration.png"), use_column_width=True)
-        st.caption("AI illustration · not the actual project")
+    html('<div class="brand">MYKONOS / HABITAT OC FUNDING DESK</div>')
+    st.title("What to raise. What to borrow.")
+    st.write("For Habitat’s finance lead: plan the gift request, compare borrowing, and draft a funding proposal.")
+    html('<div class="case-title">Washington Avenue · Santa Ana · 6 affordable homes %s</div>' % chip("sourced"))
     mode = "CONTRACT FIXTURE · saved example, not the current case" if fixture else "WHAT-IF · assumptions, not commitments" if result["is_what_if"] else "Historical (as of %s)" % case["as_of"]
     html('<div class="mode">%s</div><span class="disclaimer">Prototype, not financial or legal advice.</span>' % esc(mode))
 
