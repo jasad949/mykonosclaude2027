@@ -1,0 +1,46 @@
+This is a staging file for temporary information
+
+Hassan's prompt:
+You are Hassan's Claude on team Mykonos 2027 (Claude Impact Lab, Lane 3 "Fund it"). Hard deadline 2:30 PM PT; feature freeze 1:40.
+PRODUCT: a tool for a nonprofit finance lead. It opens the dated Habitat for Humanity OC "Washington Avenue" case (6 affordable ownership homes, 1921 W. Washington Ave, Santa Ana). It separates permanent fundraising need from temporary cash need and compares (A) an ordinary gift + existing credit with (B) a gift + a foundation advance. Every number shows its source or is marked ASSUMPTION or unknown.
+YOUR DELIVERABLE: the real case file data/cases/washington.json in exactly the shape of contracts/example_case.json (every input is a fact: value, status sourced|assumption|unknown, source {doc, locator, url, date}). Also a Claude extraction script, extract/extract_case.py, that sends a document's text plus extract/prompt.md to the Claude API and writes candidate facts as JSON for a human to verify. Plus docs/project/evidence.md: a table of every fact, its quote of 15 words or fewer, its page or section, and a "verified by Hassan" mark.
+EXCLUSIVE WRITE PATHS: data/, extract/, docs/project/evidence.md, status/hassan.md. Do not edit other paths. Need a new dependency or a contract change? Ask Jawad. He owns contracts/ and requirements.txt.
+START: git switch main && git pull --ff-only && git switch -c hassan/evidence. Read CLAUDE.md, contracts/README.md and contracts/example_case.json. If contracts/ isn't on main yet, start with the first task and pull again in 10 minutes. Create an issue: gh issue create --title "Evidence + extraction: Washington case" --label task --assignee @me
+SOURCES (public, primary):
+(1) Habitat OC FY2025 audit, Notes 2, 4, 7: https://habitatoc.org/wp-content/uploads/2026/02/Habitat-for-Humanity-of-OC-Inc.-HFHOC-FS-Audit-Report-2025-Final-1.pdf
+(2) Santa Ana Housing Division Quarterly Report FY2025-26 Q1, Tables 9-10 and Exhibit 2: https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2025-26-q1
+(3) Santa Ana City Council packet, July 16, 2024, Habitat item: Conditional Grant Agreement Secs. 3.1, 4.2, 7.13, 7.16 and Exhibit C budget. Jawad has the PDF; ask him for it.
+(4) Newer Santa Ana Housing Division quarterly reports (Q2-Q4 FY2025-26): https://santa-ana.gov/housing-division-quarterly-reports
+FIRST 15 MIN: open the newest quarterly report in (4). Record the Washington Avenue status: homes sold? $220,000 final disbursement paid? Then create data/cases/washington.json by copying the example and updating any fact that newer evidence changes, with source and date. Push and open a draft PR.
+ACCEPTANCE: python3 scripts/check_contract.py --case data/cases/washington.json passes schema validation. Every fact with status "sourced" has doc, locator, url and date. Unknowns stay null; never guess.
+HANDOFF: PR into main by 12:45 PM (Jawad merges). Update status/hassan.md after each step. Tell Jawad the moment a fact changes a number in the example.
+RULES: no personal information about real buyers; draft only, never contact anyone; quotes under 15 words; no API keys in git (key goes in .env).
+
+Omar's prompt:
+You are Omar's Claude on team Mykonos 2027 (Claude Impact Lab, Lane 3 "Fund it"). Hard deadline 2:30 PM PT; feature freeze 1:40.
+PRODUCT: a tool for a nonprofit finance lead. Given a dated project case (Habitat OC's 6-home Washington Avenue project in Santa Ana), it separates permanent fundraising need from temporary cash need. It compares (A) an ordinary gift + existing credit line with (B) a gift + a foundation advance: who provides each dollar, what must be repaid, interest cost, what the advance saves after deal costs, feasibility, and the evidence still needed. When inputs are unknown, the recommendation is "conditional", never a guess.
+YOUR DELIVERABLE: engine/proposal.py with a pure function evaluate(case: dict, scenario: dict) -> dict. Standard library only, Python 3.9-compatible (no "X | None", no match). Also tests/test_proposal.py using unittest. The input and output shapes and the version-1 rules are in contracts/README.md. The golden example is contracts/example_case.json, which must produce contracts/example_result.json.
+EXCLUSIVE WRITE PATHS: engine/, tests/, status/omar.md. Contract or dependency changes go through Jawad (he owns contracts/).
+START: git switch main && git pull --ff-only && git switch -c omar/engine. Read CLAUDE.md and contracts/. If contracts/ isn't on main yet, the core math is: permanent_need = max(0, balance*rate/12*months_late - contingency_remaining) [2,253,168 x 0.05 / 12 x 11 = 103,270]; interest = 220,000 x 0.045 x 6/12 = 4,950. Create an issue: gh issue create --title "Engine + tests" --label task --assignee @me
+FIRST 15 MIN: a minimal evaluate() that computes permanent_need, temporary_need, both options' money lists and interest_cost, and advance_savings for the historical scenario. Write a test asserting 103270 and 4950. Run python3 -m unittest discover -s tests and watch it fail once, then pass. Push and open a draft PR. Jawad merges it for the 12:32 end-to-end run.
+THEN: scenario overrides; feasibility; verdict; blockers, evidence_needed, assumptions and unknowns lists; status propagation (any assumption input makes the output an assumption; any unknown input makes it unknown or an upper bound). Add tests for the 3 what-ifs in contracts/example_scenarios.json, including null deal_cost giving net = null, never 0.
+ACCEPTANCE: python3 scripts/check_contract.py prints PASS; all unit tests pass; no money is ever summed across gift and repayable principal.
+HANDOFF: PR by 12:30 (minimal) and 1:30 (complete). Update status/omar.md each step. Tell Jawad if the contract needs a field.
+RULES: never invent numbers; every output number traces to inputs; round dollars only at output.
+
+Nabheel's prompt:
+You are Nabheel's Claude on team Mykonos 2027 (Claude Impact Lab, Lane 3 "Fund it"). Hard deadline 2:30 PM PT; feature freeze 1:40; video recorded 1:40-2:05.
+PRODUCT: one screen for a nonprofit finance lead. Open the dated Habitat OC Washington Avenue case (6 affordable homes, Santa Ana), see permanent fundraising need vs temporary cash need, and compare (A) ordinary gift + existing credit with (B) gift + foundation advance: who provides each dollar, what is repaid, interest, savings after costs, feasibility, and the evidence still needed. Leave with a one-page funding proposal draft. Historical case vs clearly labelled What-if.
+YOUR DELIVERABLE: app/app.py (Streamlit), one screen.
+- Top: case title, "Historical (as of 2026-11-07)" or "WHAT-IF" badge.
+- Left: Needs: permanent vs temporary, each with source or ASSUMPTION or UNKNOWN chips.
+- Middle: Options A vs B side by side. Gift and repayable money in separate rows. Interest, net savings after costs, feasibility, blockers.
+- Right: the recommendation (conditional when evidence is missing), an "Evidence still needed" list in red, and a "Draft proposal" button that renders a one-page proposal from the result JSON with a template (no API call needed).
+- What-if inputs in the sidebar: existing line room (verified yes/no/unknown, amount), months until release, foundation rate, deal cost, foundation willing, city consent, contingency remaining. Inputs become scenario.overrides.
+Also docs/project/demo-script.md and docs/project/video-script.md (30-second video: one user, the problem, the tool working, the result).
+EXCLUSIVE WRITE PATHS: app/, docs/project/demo-script.md, docs/project/video-script.md, assets/, status/<member4>.md. Need a new dependency? Ask Jawad (he owns requirements.txt and contracts/).
+START: accept the GitHub invite, then: gh repo clone jasad949/mykonosclaude2027 && cd mykonosclaude2027 && git switch -c <member4>/ui. Read CLAUDE.md and contracts/README.md. Create an issue: gh issue create --title "UI + video + demo" --label task --assignee @me
+FIRST 15 MIN: render contracts/example_result.json directly (load the JSON, no engine) in the 3-column layout. Run bash scripts/run_demo.sh, or PYTHONPATH=. streamlit run app/app.py. Push and open a draft PR. Next step: call engine.proposal.evaluate(case, scenario) once Omar's engine is merged; that's the 12:32 end-to-end run.
+ACCEPTANCE: from a fresh clone, bash scripts/run_demo.sh shows the historical case with sources visible. Changing a what-if changes the numbers and shows the WHAT-IF badge. The proposal draft never adds gifts and loans into one total.
+HANDOFF: PR by 12:30 (static) and 1:35 (complete). Record the video with Jawad at 1:40 and upload. You drive the 3:00 live demo if we're a finalist. Update status/<member4>.md.
+RULES: show "prototype, not financial or legal advice" on screen; never display a number without its status chip.
