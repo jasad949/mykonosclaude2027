@@ -45,3 +45,16 @@ holdback” for $220,000 **SOURCED**. The city release also requires lien-free c
 closings. Do not say there are exactly four missing facts: the current evidence list is longer.
 For the assumed zero-rate advance, $4,950 **ASSUMPTION** is the break-even deal cost; a nonzero
 foundation rate changes it. These edits keep the narration consistent with the new rate control.
+
+## Recorded draft artifact
+
+`assets/demo-draft.mp4` is a roughly thirty-second recording of the actual app, with synthetic
+macOS narration and an on-screen disclosure. It follows the historical case → hypothetical
+foundation/city consent and deal cost → generated proposal sequence. No figures were composited
+or altered in the video. The checked-in source is the UI branch at commit `24c9a4a`.
+
+This is a reviewable draft for Nabheel and Jawad, not a claim that they recorded together or that
+the event hub upload is complete. Play the full clip with sound, then upload the approved file to
+the hub. The public GitHub branch contains the draft; the final submission should reference a
+video that is confirmed accessible without sign-in. Runtime app dependencies are unchanged;
+recording tools were temporary development tools outside the repository.

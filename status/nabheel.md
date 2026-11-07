@@ -14,7 +14,7 @@
 
 - `python3 scripts/check_contract.py`: PASS.
 - `python3 scripts/check_contract.py --case data/cases/washington.json`: PASS.
-- `python3 -m unittest discover -s tests`: 13 passed.
+- `python3 -m unittest discover -s tests`: 14 passed after latest main merge.
 - Streamlit AppTest: historical $150,211 assumption upper bound / $220,000 sourced;
   what-if foundation/city yes and $2,000 cost => $2,950 assumption savings;
   foundation rate 2% => $750 assumption savings; old proposal invalidated; historical reset;
@@ -35,5 +35,12 @@
 - Pulled main c292108, including Hassan's newly verified packet conditions and evidence.
 - Draft PR #18: https://github.com/jasad949/mykonosclaude2027/pull/18. Local implementation is at
   `/private/tmp/mykonosclaude2027` (provided workspace path was absent on execution host).
-- Recording with Jawad and upload remain human handoff steps; not yet done.
-- Have Jawad/Claude review storyboard for the event's Claude-help requirement.
+- Recorded `assets/demo-draft.mp4`: 30.12 seconds, actual app browser capture, 1600×1000,
+  H.264/AAC, synthetic narration disclosed on screen. Historical, what-if and proposal shots
+  visually checked; audio stream has nonzero signal and no clipping (peak -2 dB).
+- Separate clean clone at `/private/tmp/mykonos-ui-acceptance`: unchanged run_demo.sh installs
+  dependencies and starts; real-browser historical/what-if/proposal checks PASS.
+- Nabheel + Jawad should play the full draft with sound and approve/re-record before hub upload.
+  Uploaded to the PR branch, not submitted on the event hub.
+- Storyboard combines Jawad's Claude-assisted contribution with Codex drafting. README owner
+  should correct the “four teammates each ran Claude Code” claim and verify “uploaded on hub”.
