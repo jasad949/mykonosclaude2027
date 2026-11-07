@@ -7,6 +7,20 @@ Keep **Contract fixture preview** off and **Explore a what-if** off. The fixture
 `contracts/example_result.json` directly and is explicitly an older saved example, not the current case.
 The normal path evaluates `data/cases/washington.json` with `engine.proposal.evaluate(case, scenario)`.
 
+## Clear answers on the opening screen
+
+The screen asks the finance lead's three questions directly: **How much do we need to raise?**,
+**How much do we only need to borrow?**, and **Which borrowing option makes sense?** The historical
+answer is a modeled gift need, a separate temporary borrowing need, and **Confirm terms first**.
+A short comparison table shows gifts, borrowing, interest, fees and availability. Detailed blockers,
+repayment conditions, source inputs and the complete evidence checklist are expandable.
+
+For a quick demo, click **Try foundation example**. This sets hypothetical willingness, consent,
+zero foundation rate, six months and $2,000 deal cost; all edited facts remain assumptions. The
+screen shows B and $2,950 assumed net savings. Open **Adjust assumptions** to vary the terms;
+turn **Explore a what-if** off to return to historical evidence. **Demo tools** contains the fixture.
+The housing image is AI-generated illustration, not a project photo or approved rendering.
+
 ## Presenter path
 
 1. **User and problem:** “A nonprofit finance lead needs to distinguish a permanent fundraising

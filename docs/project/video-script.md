@@ -46,7 +46,13 @@ closings. Do not say there are exactly four missing facts: the current evidence 
 For the assumed zero-rate advance, $4,950 **ASSUMPTION** is the break-even deal cost; a nonzero
 foundation rate changes it. These edits keep the narration consistent with the new rate control.
 
-## Recorded draft artifact
+## UI refresh
+
+The current UI leads with the three raise / borrow / choose questions. Use **Try foundation
+example** for the what-if transition, then **Draft proposal**. Details are expandable. Re-record
+before submission: the existing clip below shows the previous layout, not this UI refresh.
+
+## Recorded draft artifact (previous layout)
 
 `assets/demo-draft.mp4` is a roughly thirty-second recording of the actual app, with synthetic
 macOS narration and an on-screen disclosure. It follows the historical case → hypothetical

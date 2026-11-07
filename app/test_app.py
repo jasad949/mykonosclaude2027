@@ -36,7 +36,7 @@ class FundingDeskTest(unittest.TestCase):
         at.selectbox(key='consent').select('Yes')
         at.checkbox(key='cost_known').check().run()
         self.assertEqual(at.session_state['evaluated_result']['advance_savings']['net'], 2950)
-        at.button[0].click().run()
+        at.button(key='draft_proposal').click().run()
         self.assertFalse(at.exception)
         draft = at.session_state['proposal_html']
         self.assertIn('GIFT, NOT REPAID', draft)
@@ -83,10 +83,31 @@ class FundingDeskTest(unittest.TestCase):
             at.checkbox(key='fixture').check().run()
             self.assertFalse(at.exception)
             self.assertEqual(at.session_state['evaluated_result'], json.loads((ROOT / 'contracts/example_result.json').read_text()))
-            at.button[0].click().run()
+            at.button(key='draft_proposal').click().run()
             self.assertFalse(at.exception)
             self.assertIn('upper bound', at.session_state['proposal_html'])
             self.assertIn('CONTRACT FIXTURE', at.session_state['proposal_html'])
+
+    def test_quick_example_and_plain_language_answers(self):
+        at = self.open()
+        rendered = '\n'.join(x.value for x in at.markdown)
+        for question in ('How much do we need to raise?', 'How much do we only need to borrow?',
+                         'Which borrowing option makes sense?', 'Confirm terms first'):
+            self.assertIn(question, rendered)
+        at.button(key='foundation_example').click().run()
+        self.assertFalse(at.exception)
+        result = at.session_state['evaluated_result']
+        self.assertTrue(result['is_what_if'])
+        self.assertEqual(result['advance_savings']['net'], 2950)
+        self.assertEqual(result['recommendation']['verdict'], 'gift_plus_foundation_advance')
+        self.assertTrue(all(f['status'] == 'assumption' for f in
+                            at.session_state['evaluated_scenario']['overrides'].values()))
+        at.button(key='draft_proposal').click().run()
+        self.assertIn('WHAT-IF', at.session_state['proposal_html'])
+        at.toggle(key='what_if').set_value(False).run()
+        self.assertFalse(at.session_state['evaluated_result']['is_what_if'])
+        self.assertIsNone(at.session_state['evaluated_result']['advance_savings']['net'])
+        self.assertNotIn('proposal_html', at.session_state)
 
     def test_legacy_fixture_status_fallback_and_html_escaping(self):
         case = json.loads((ROOT / 'contracts/example_case.json').read_text())

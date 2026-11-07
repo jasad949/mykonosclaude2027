@@ -11,7 +11,7 @@ import streamlit.components.v1 as components
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from app.presentation import (amount, annotated, chip, esc, evidence, fact_status,
-                              proposal_html, source_link, statuses, upper_bound, VERDICTS)
+                              proposal_html, source_link, statuses, upper_bound)
 
 HISTORICAL = "Historical (as documented)"
 
@@ -56,22 +56,32 @@ def fact_row(facts, name, label):
         html('<div class="note">%s</div>' % annotated(f["note"], fact_status(facts, name)))
 
 
+def foundation_example():
+    """A clearly hypothetical, reproducible offer; never mark inputs as sourced."""
+    st.session_state.update(what_if=True, line_verified="As documented", room=825000,
+                            months=6, rate=0.0, cost_known=True, cost=2000,
+                            willing="Yes", consent="Yes", cont_known=False, cont=0)
+
+
 def sidebar(facts, fixture):
-    st.sidebar.title("Scenario desk")
-    enabled = st.sidebar.toggle("Explore a what-if", disabled=fixture, key="what_if")
-    st.sidebar.caption("Every edited value is an ASSUMPTION. Verification here is hypothetical, not proof.")
+    st.markdown("### Try a funding scenario")
+    st.caption("Change the terms. See the borrowing decision update.")
+    st.button("Try foundation example", key="foundation_example", on_click=foundation_example, disabled=fixture, use_container_width=True)
+    enabled = st.toggle("Explore a what-if", disabled=fixture, key="what_if")
+    st.caption("Every edited value is an ASSUMPTION. Verification here is hypothetical, not proof.")
     disabled = not enabled or fixture
     overrides = {}
-    line = st.sidebar.selectbox("Line room verified?", ["As documented", "Yes", "No", "Unknown"], disabled=disabled, key="line_verified")
-    room = st.sidebar.number_input("Line room ($) · ASSUMPTION", min_value=0, value=int(facts["existing_line_available"].get("value") or 0), step=10000, disabled=disabled or line in ("As documented", "Unknown"), key="room")
-    months = st.sidebar.number_input("Months until release · ASSUMPTION", min_value=0, max_value=120, value=int(facts["months_until_release"].get("value") or 0), disabled=disabled, key="months")
-    rate = st.sidebar.number_input("Foundation annual rate (%) · ASSUMPTION", min_value=0.0, max_value=100.0, value=float(facts["foundation_advance_rate"].get("value") or 0) * 100, step=0.25, disabled=disabled, key="rate")
-    cost_known = st.sidebar.checkbox("Set deal cost · ASSUMPTION", disabled=disabled, key="cost_known")
-    cost = st.sidebar.number_input("Deal cost ($) · ASSUMPTION", min_value=0, value=2000, step=500, disabled=disabled or not cost_known, key="cost")
-    willing = st.sidebar.selectbox("Foundation willing? · ASSUMPTION", ["As documented", "Yes", "No", "Unknown"], disabled=disabled, key="willing")
-    consent = st.sidebar.selectbox("City consent? · ASSUMPTION", ["As documented", "Yes", "No", "Unknown"], disabled=disabled, key="consent")
-    cont_known = st.sidebar.checkbox("Set contingency remaining · ASSUMPTION", disabled=disabled, key="cont_known")
-    cont = st.sidebar.number_input("Contingency ($) · ASSUMPTION", min_value=0, value=0, step=5000, disabled=disabled or not cont_known, key="cont")
+    with st.expander("Adjust assumptions", expanded=enabled):
+        line = st.selectbox("Line room verified?", ["As documented", "Yes", "No", "Unknown"], disabled=disabled, key="line_verified")
+        room = st.number_input("Line room ($) · ASSUMPTION", min_value=0, value=int(facts["existing_line_available"].get("value") or 0), step=10000, disabled=disabled or line in ("As documented", "Unknown"), key="room")
+        months = st.number_input("Months until release · ASSUMPTION", min_value=0, max_value=120, value=int(facts["months_until_release"].get("value") or 0), disabled=disabled, key="months")
+        rate = st.number_input("Foundation annual rate (%) · ASSUMPTION", min_value=0.0, max_value=100.0, value=float(facts["foundation_advance_rate"].get("value") or 0) * 100, step=0.25, disabled=disabled, key="rate")
+        cost_known = st.checkbox("Set deal cost · ASSUMPTION", disabled=disabled, key="cost_known")
+        cost = st.number_input("Deal cost ($) · ASSUMPTION", min_value=0, value=2000, step=500, disabled=disabled or not cost_known, key="cost")
+        willing = st.selectbox("Foundation willing? · ASSUMPTION", ["As documented", "Yes", "No", "Unknown"], disabled=disabled, key="willing")
+        consent = st.selectbox("City consent? · ASSUMPTION", ["As documented", "Yes", "No", "Unknown"], disabled=disabled, key="consent")
+        cont_known = st.checkbox("Set contingency remaining · ASSUMPTION", disabled=disabled, key="cont_known")
+        cont = st.number_input("Contingency ($) · ASSUMPTION", min_value=0, value=0, step=5000, disabled=disabled or not cont_known, key="cont")
     if enabled and not fixture:
         if line == "Unknown":
             overrides["existing_line_available"] = {"value": None, "status": "unknown", "verified_current": False}
@@ -93,18 +103,11 @@ def sidebar(facts, fixture):
 
 
 def main():
-    st.set_page_config(page_title="Washington Avenue · Funding desk", page_icon="🏠", layout="wide")
-    html('''<style>
-    .block-container{padding:3.5rem 2rem 1rem;max-width:1700px} h1{font-size:1.9rem!important;padding-bottom:.3rem} h3{font-size:1.05rem!important} p{font-size:.88rem;line-height:1.45;margin-bottom:.5rem}
-    .chip{display:inline-block;border:1px solid;border-radius:4px;padding:1px 5px;font:600 10px/1.6 sans-serif;vertical-align:middle;white-space:nowrap}
-    .sourced{color:#14604c;background:#e7f3ed}.assumption{color:#7c5100;background:#fff2d5}.unknown{color:#a32432;background:#fff0f0}
-    .metric{border:1px solid #cbdad6;border-left:4px solid #1f7160;border-radius:8px;padding:13px;margin-bottom:12px}
-    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:600}.value{font-size:27px;font-weight:650;margin:5px 0}.note,.source{font-size:11px;line-height:1.45;opacity:.85}.source{margin-bottom:7px}.source a{color:#247463}
-    .mode{display:inline-block;border:1px solid #c9a455;border-radius:5px;padding:4px 10px;font-size:12px;font-weight:650;margin-bottom:12px}
-    .money{border-bottom:1px solid #dce3e1;padding:8px 0}.money strong{font-size:18px}.money .chip{font-size:9px}.bad{color:#b32936;font-size:12px}.evidence{color:#b32936;padding-left:17px;font-size:12px;line-height:1.5}.verdict{background:#f2f6f3;color:#193c33;border-radius:8px;padding:12px;margin-bottom:10px;font-weight:600}
-    [data-testid="stSidebar"] .block-container{padding-top:1rem} [data-testid="stSidebar"] label p{font-size:12px} [data-testid="stVerticalBlock"]{gap:.65rem}
-    </style>''')
-    fixture = st.sidebar.checkbox("Contract fixture preview", help="Static saved example result; no evaluation. Older fixture, not the current case.", key="fixture")
+    st.set_page_config(page_title="Habitat OC · Raise or borrow?", page_icon="🏠", layout="wide")
+    html((ROOT / "app/style.css").read_text())
+    scenario_panel = st.sidebar.container()
+    with st.sidebar.expander("Demo tools"):
+        fixture = st.checkbox("Contract fixture preview", help="Older saved example; no engine call.", key="fixture")
     path = ROOT / ("contracts/example_case.json" if fixture else "data/cases/washington.json")
     try:
         case = load_json(path)
@@ -112,7 +115,8 @@ def main():
         st.error("Case could not be loaded. Restore the checked-in Washington case before demoing.")
         st.caption(str(exc))
         st.stop()
-    scenario = sidebar(case["facts"], fixture)
+    with scenario_panel:
+        scenario = sidebar(case["facts"], fixture)
     facts = copy.deepcopy(case["facts"])
     facts.update(scenario["overrides"])
     if fixture:
@@ -125,73 +129,114 @@ def main():
     snapshot = hashlib.sha256(json.dumps([case, scenario, result], sort_keys=True).encode()).hexdigest()
     if st.session_state.get("proposal_snapshot") != snapshot:
         st.session_state.pop("proposal_html", None)
-    st.caption("MYKONOS · FUNDING DESK")
-    st.title("Habitat OC · Washington Avenue")
-    html('<p>%s %s</p>' % (esc(case["title"]), chip("sourced")))
+
+    heading, picture = st.columns([3, 1], gap="large")
+    with heading:
+        html('<div class="brand">MYKONOS / HABITAT OC FUNDING DESK</div>')
+        st.title("What to raise. What to borrow.")
+        st.write("For Habitat’s finance lead: plan the gift request, compare borrowing, and draft a funding proposal.")
+        html('<div class="case-title">Washington Avenue · Santa Ana · 6 affordable homes %s</div>' % chip("sourced"))
+    with picture:
+        st.image(str(ROOT / "assets/neighborhood-illustration.png"), use_column_width=True)
+        st.caption("AI illustration · not the actual project")
     mode = "CONTRACT FIXTURE · saved example, not the current case" if fixture else "WHAT-IF · assumptions, not commitments" if result["is_what_if"] else "Historical (as of %s)" % case["as_of"]
-    html('<div class="mode">%s</div>' % esc(mode))
-    st.caption("Prototype, not financial or legal advice. Consult qualified finance and legal professionals before acting.")
-    left, middle, right = st.columns([1, 1.7, 1.15], gap="medium")
+    html('<div class="mode">%s</div><span class="disclaimer">Prototype, not financial or legal advice.</span>' % esc(mode))
+
     p, t, savings = result["permanent_need"], result["temporary_need"], result["advance_savings"]
     states = statuses(result, facts)
-    with left:
-        st.subheader("The two needs")
-        metric("Permanent · gift", p["value"], p["status"], "Upper bound · contingency unknown" if upper_bound(result) else "Modeled delay carry after contingency")
-        html('<div class="source">%s</div>' % source_link(facts["construction_line_balance"], "Audited loan balance"))
-        metric("Temporary · repaid", t["value"], t["status"], "Repaid from the city's final disbursement")
+    verdict = result["recommendation"]["verdict"]
+    decision = {
+        "conditional": ("Confirm terms first", "Neither option is ready to choose without the missing evidence."),
+        "gift_plus_existing_credit": ("A · Existing credit", "Available under these inputs. A cheaper foundation advance has not been established."),
+        "gift_plus_foundation_advance": ("B · Foundation advance", "Lower cost under these inputs." if savings["net"] is not None and savings["net"] > 0 else "Available under these inputs; the existing line cannot cover the need."),
+        "no_bridge": ("Find another lender", "Neither borrowing option can cover the timing gap under these inputs."),
+    }.get(verdict, ("Review needed", "Check the detailed recommendation before acting."))
+    raise_col, borrow_col, choose_col = st.columns(3, gap="medium")
+    with raise_col:
+        metric("How much do we need to raise?", p["value"], p["status"],
+               "Gift · not repaid. Covers modeled delay interest.")
+        st.caption("Upper bound: contingency unknown. Not the full project gap." if upper_bound(result) else "After available contingency. Not the full project gap.")
+        html('<div class="source">%s</div>' % source_link(facts["construction_line_balance"], "Audit basis"))
+    with borrow_col:
+        metric("How much do we only need to borrow?", t["value"], t["status"],
+               "Temporary cash · repaid when the city releases its final payment.")
+        st.caption("The city must first confirm the release conditions are met.")
         html('<div class="source">%s</div>' % source_link(facts["city_holdback"], "City holdback"))
-        html('<p class="note">Separate needs, never one fundraising total. Permanent need models delay interest, not the full project budget.</p>')
-        with st.expander("Inputs, sources & dates"):
-            for name, label in [("construction_line_balance", "Construction loan drawn"), ("construction_line_rate", "Annual construction rate"), ("months_late", "Delay"), ("contingency_remaining", "Contingency"), ("city_holdback", "Holdback"), ("holdback_release_condition", "Release conditions"), ("existing_line_available", "Existing line room"), ("existing_line_rate", "Existing rate"), ("months_until_release", "Time to release"), ("foundation_advance_rate", "Foundation rate"), ("foundation_deal_cost", "Deal cost"), ("past_sponsorship_excluded", "Past gift — excluded from new money")]:
-                fact_row(facts, name, label)
-            for name in ("construction_line_maturity", "scheduled_construction_completion", "scheduled_move_in", "building_permit_issued"):
-                if name in facts:
-                    fact_row(facts, name, name.replace("_", " ").capitalize())
-    with middle:
-        st.subheader("Compare the funding")
-        cols = st.columns(2, gap="small")
-        for i, (col, opt) in enumerate(zip(cols, result["options"])):
-            with col:
-                st.markdown("**%s · %s**" % ("A" if i == 0 else "B", "Existing credit" if i == 0 else "Foundation advance"))
-                html('<p>Feasible: <b>%s</b>%s</p>' % (esc(opt["feasible"].upper()), " · in this what-if" if result["is_what_if"] else ""))
-                for money in opt["money"]:
-                    repay = money["repayable"]
-                    html('<div class="money"><div class="eyebrow">%s</div><strong>%s</strong><div class="note">%s%s</div></div>' % (
-                        "REPAYABLE PRINCIPAL" if repay else "GIFT · NOT REPAID", amount(money["amount"], t["status"] if repay else p["status"]),
-                        esc(money["provider"].split(" (")[0]), " · upper bound" if not repay and upper_bound(result) else ""))
-                rate_name = "existing_line_rate" if i == 0 else "foundation_advance_rate"
-                rate = facts[rate_name].get("value")
-                html('<p>Annual rate: %s %s</p>' % ("Unknown" if rate is None else "{:.2f}%".format(rate * 100), chip(fact_status(facts, rate_name))))
-                html('<p>Interest: %s</p><p>Deal cost: %s</p>' % (amount(opt["interest_cost"], states["a" if i == 0 else "b"]), amount(opt["deal_cost"], "assumption" if i == 0 else states["cost"])))
-                html('<p class="note">Principal repaid from city final disbursement. Nonprofit pays interest and deal costs.</p>')
-                for blocker in opt.get("blockers", []):
-                    html('<div class="bad">• %s</div>' % annotated(blocker))
-        st.markdown("**Advance savings after costs**")
-        html('<p>Gross %s − deal cost %s</p>' % (amount(savings["gross"], states["gross"]), amount(savings["deal_cost"], states["cost"])))
-        metric("Net savings · B versus A", savings["net"], states["net"], "Savings are not another gift or a funding commitment")
-        html('<p class="note">Break-even deal cost: %s. Existing-credit deal cost is an assumed baseline.</p>' % amount(savings["break_even_deal_cost"], states["gross"]))
-    with right:
-        st.subheader("Next decision")
-        rec = result["recommendation"]
-        html('<div class="verdict">%s</div>' % esc(VERDICTS.get(rec["verdict"], "Review required")))
-        if result["is_what_if"]:
-            st.caption("This recommendation depends on user assumptions; no offer or approval is verified.")
-        if rec["verdict"] == "conditional":
-            st.write("Keep the gift request separate. Confirm bridge availability, written terms and repayment permission before selecting an option.")
-        elif rec["verdict"] == "no_bridge":
-            st.write("Neither modeled bridge is available. Find another temporary funding source; retain the separate gift request.")
-        else:
-            st.write("Use the indicated structure only after the evidence below is confirmed. Gifts do not repay principal; city disbursement does.")
-        with st.expander("Recommendation rationale"):
-            html('<p>%s</p>' % annotated(rec["text"]))
-            for condition in rec.get("conditions", []):
+    with choose_col:
+        html('<div class="metric decision"><div class="eyebrow">Which borrowing option makes sense?</div><div class="decision-title">%s</div><div class="note">%s</div></div>' % (esc(decision[0]), esc(decision[1])))
+        st.caption("Conditional on assumptions; no offer or approval verified." if result["is_what_if"] else "Historical evidence is not a current lending commitment.")
+        with st.expander("Why this answer?"):
+            html('<p>%s</p>' % annotated(result["recommendation"]["text"]))
+            for condition in result["recommendation"].get("conditions", []):
                 html('<p>%s</p>' % annotated(condition))
-        st.markdown("**Evidence still needed**")
-        html('<ul class="evidence">%s</ul>' % "".join('<li>%s</li>' % esc(e) for e in evidence(result, facts)))
-        if st.button("Draft proposal", type="primary", use_container_width=True):
+
+    comparison, next_step = st.columns([2.05, 1], gap="large")
+    with comparison:
+        st.subheader("Compare ways to borrow")
+        opts = result["options"]
+        feasibility = {"yes": "Available under these inputs", "no": "Not available", "unknown": "Needs confirmation"}
+        rows = []
+        for label, repay in (("Gift · not repaid", False), ("Borrow · repay principal", True)):
+            cells = []
+            for opt in opts:
+                money = next(m for m in opt["money"] if m["repayable"] == repay)
+                cells.append(amount(money["amount"], t["status"] if repay else p["status"]) + '<small>' + esc(money["provider"].split(" (")[0]) + '</small>')
+            rows.append((label, cells))
+        rates = []
+        for name in ("existing_line_rate", "foundation_advance_rate"):
+            rate = facts[name].get("value")
+            rates.append(("Unknown" if rate is None else "{:.2f}%".format(rate * 100)) + " " + chip(fact_status(facts, name)))
+        rows.extend([
+            ("Annual interest rate", rates),
+            ("Interest until city payment", [amount(opts[0]["interest_cost"], states["a"]), amount(opts[1]["interest_cost"], states["b"])]),
+            ("Deal cost", [amount(opts[0]["deal_cost"], "assumption"), amount(opts[1]["deal_cost"], states["cost"])]),
+            ("Can we use it?", [esc(feasibility.get(o["feasible"], "Needs confirmation")) for o in opts]),
+        ])
+        html('<div class="comparison"><table><thead><tr><th scope="col">Funding &amp; cost</th><th scope="col">A · Existing credit</th><th scope="col">B · Foundation advance</th></tr></thead><tbody>' +
+             ''.join('<tr><th scope="row">%s</th>%s</tr>' % (esc(label), ''.join('<td>%s</td>' % cell for cell in cells)) for label, cells in rows) + '</tbody></table></div>')
+        savings_note = "After deal costs, compared with A"
+        if savings["net"] is None:
+            savings_note = "Enter deal cost to calculate savings" if savings["gross"] is not None else "Confirm rates and timing to calculate savings"
+        elif savings["net"] < 0:
+            savings_note = "B costs more than A under these inputs"
+        elif savings["net"] == 0:
+            savings_note = "Both options cost the same under these inputs"
+        color = " costlier" if savings["net"] is not None and savings["net"] < 0 else ""
+        html('<div class="savings%s"><div><b>Net savings with B</b><small>%s</small></div><strong>%s</strong></div>' % (color, esc(savings_note), amount(savings["net"], states["net"])))
+        st.caption("Habitat repays the loan from the city payment and pays interest and fees. The gift is never repaid.")
+        with st.expander("Costs, repayment & blockers"):
+            html('<p>Interest saved %s − deal cost %s = net savings %s.</p>' % (amount(savings["gross"], states["gross"]), amount(savings["deal_cost"], states["cost"]), amount(savings["net"], states["net"])))
+            html('<p>Break-even deal cost: %s. A’s deal cost is an assumed baseline.</p>' % amount(savings["break_even_deal_cost"], states["gross"]))
+            for label, opt in zip(("A · Existing credit", "B · Foundation advance"), opts):
+                st.markdown("**" + label + "**")
+                if not opt.get("blockers"):
+                    st.caption("No model blocker under these inputs. Confirm written terms before acting.")
+                for blocker in opt.get("blockers", []):
+                    html('<p class="bad">%s</p>' % annotated(blocker))
+            fact_row(facts, "holdback_release_condition", "City payment conditions")
+    with next_step:
+        st.subheader("Your next step")
+        st.write("Take a separate gift request and borrowing plan to your team or funder.")
+        if st.button("Draft proposal", type="primary", use_container_width=True, key="draft_proposal"):
             st.session_state["proposal_html"] = proposal_html(case, scenario, result, facts, fixture=fixture)
             st.session_state["proposal_snapshot"] = snapshot
-        st.caption("One-page draft · generated locally · not sent")
+        st.caption("One-page draft · review, download, share yourself")
+        st.markdown("**Evidence still needed**")
+        needed = evidence(result, facts)
+        html('<ul class="evidence">%s</ul>' % ''.join('<li>%s</li>' % esc(item) for item in needed[:3]))
+        with st.expander("View the full evidence checklist"):
+            html('<ul class="evidence">%s</ul>' % ''.join('<li>%s</li>' % esc(item) for item in needed))
+        st.caption("Assumptions remain on the checklist until independently verified.")
+
+    with st.expander("Inputs, sources & dates"):
+        st.caption("SOURCED = documented, not necessarily current · ASSUMPTION = modeled or entered · UNKNOWN = missing")
+        source_cols = st.columns(2)
+        names = [("construction_line_balance", "Construction loan drawn"), ("construction_line_rate", "Annual construction rate"), ("months_late", "Delay"), ("contingency_remaining", "Contingency"), ("city_holdback", "Holdback"), ("holdback_release_condition", "Release conditions"), ("existing_line_available", "Existing line room"), ("existing_line_rate", "Existing rate"), ("months_until_release", "Time to release"), ("foundation_advance_rate", "Foundation rate"), ("foundation_deal_cost", "Deal cost"), ("past_sponsorship_excluded", "Past gift — excluded from new money")]
+        names += [(name, name.replace("_", " ").capitalize()) for name in ("construction_line_maturity", "scheduled_construction_completion", "scheduled_move_in", "building_permit_issued") if name in facts]
+        for i, (name, label) in enumerate(names):
+            with source_cols[i % 2]:
+                fact_row(facts, name, label)
+    st.caption("Prototype, not financial or legal advice. Confirm decisions with qualified finance and legal professionals.")
     if "proposal_html" in st.session_state:
         st.divider()
         st.subheader("Draft funding proposal")

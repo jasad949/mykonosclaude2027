@@ -1,6 +1,22 @@
 # Nabheel — UI, video and demo
 
-## Now — 2026-11-07
+## UI clarity update — 2026-11-07
+
+- User explicitly requested a simpler, illustrated UI centered on the finance lead's questions.
+- Three answer cards now show what to raise, what to borrow, and which borrowing option makes
+  sense. Historical evidence gives “Confirm terms first”; the gift is explicitly a modeled
+  delay-interest need, not the full project gap. Gifts and loans remain separate.
+- Compact A/B table; expandable costs/blockers, evidence checklist and source inputs. Primary
+  proposal action stays visible. Added a labeled AI neighborhood illustration and its provenance.
+- One-click foundation example sets only hypothetical inputs; all overrides remain assumptions.
+  Full controls remain available under Adjust assumptions, and the historical toggle clears overrides.
+- Verified: 7 UI tests, 14 engine tests, both contract checks. Chrome at desktop width checks
+  historical answers, example => $2,950 assumed savings, rate edit => $750, proposal creation,
+  stale-draft clearing and return to historical. Printable proposal remains unchanged.
+- No dependencies or teammate-owned files changed. Existing demo video shows the prior layout;
+  demo/video scripts flag it for re-recording before submission. No new hub upload claimed.
+
+## Earlier delivery — 2026-11-07
 
 - Branch: `nabheel/ui`; task: #17 (continues #5).
 - Own files: `app/`, `docs/project/demo-script.md`, `docs/project/video-script.md`, this status.
