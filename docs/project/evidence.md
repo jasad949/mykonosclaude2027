@@ -10,7 +10,9 @@ Hassan read it in the source document. Checked 2026-11-07.
   https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/
 - **Q4-26**: Santa Ana Housing Division Quarterly Report FY2025-26 Q4 (used for comparison only).
   https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2025-26-q4-2/
-- **PACKET**: Santa Ana City Council packet, July 16, 2024 (Conditional Grant Agreement). PDF held by Jawad.
+- **GRANT**: Conditional Grant Agreement, Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024 (117 pages):
+  https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db
+  (meeting page: https://santa-ana.primegov.com/Portal/Meeting?meetingTemplateId=22247)
 - **NEWS**: New Santa Ana, May 20, 2024.
 
 | Fact | Value | Quote (≤15 words) | Where | Verified by Hassan |
@@ -26,13 +28,18 @@ Hassan read it in the source document. Checked 2026-11-07.
 | city_grant_total | $2,200,000 | "City Funds Inclusionary Housing Funds ($2,200,000)" | Q1-27 project update, PDF p.11 | ✅ |
 | scheduled_construction_completion | Oct 2026 (schedule) | "Oct 26 Construction completion of all six homes" | Q1-27 Exhibit 2, PDF p.16 | ✅ |
 | scheduled_move_in | Nov 2026 (schedule) | "Nov 26 New first-time homeowner families move in" | Q1-27 Exhibit 2, PDF p.16 | ✅ |
-| months_late | 16 (ASSUMPTION) | Derived: Jun 2025 planned sales → Oct 2026 scheduled completion | PACKET Exhibit C (Jun 2025, not re-read) + Q1-27 Exhibit 2 | ⚠️ partly: Oct 2026 read; Jun 2025 from team example |
+| months_late | 16 (ASSUMPTION) | "Home Sales Complete 06/25/25 06/27/25" → "Oct 26 Construction completion of all six homes" | GRANT Exhibit B schedule, PDF p.40 + Q1-27 Exhibit 2 | ✅ both ends read |
 | months_until_release | 6 (ASSUMPTION) | none. Schedule suggests Nov 2026 move-in; closings not public | Q1-27 Exhibit 2 | n/a (assumption) |
 | building_permit_issued | unknown: sources disagree | p.11: "Building permits were issued on October 1, 2026" vs p.16: "Oct 25 Building permit issued" | Q1-27 PDF p.11 vs p.16 | ✅ both read; conflict unresolved |
-| holdback_release_condition | CofO + all six buyers closed escrow | (from team example) | PACKET Sec. 4.2 | ❌ not yet: need the PDF from Jawad |
-| assignment_consent | unknown | (from team example) | PACKET Sec. 7.13 | ❌ not yet |
-| contingency_remaining | unknown ($477,762 budgeted) | (from team example) | PACKET Exhibit C | ❌ not yet |
-| past_sponsorship_excluded | $125,000 | (from team example) | NEWS, May 20, 2024 | ❌ not yet |
+| holdback_release_condition | Complete + CofO + buyers closed escrow + **lien-free** | "Final Disbursement Conditions Precedent"; "(d) Lien Free" | GRANT Sec. 4.2, PDF p.8 | ✅ |
+| (release timing) | City pays within 21 days of conditions | "the City shall disburse the Inclusionary Grant within twenty one (21) days" | GRANT Sec. 4.3, PDF p.8 | ✅ |
+| assignment_consent | unknown (consent required) | "only with the prior written consent of the City Project Manager" | GRANT Sec. 7.13, PDF p.13 | ✅ |
+| contingency_remaining | unknown ($477,762 budgeted) | "Project Contingency 477,762 79,627" | GRANT Exhibit C, PDF p.41 | ✅ budget read; remaining not public |
+| planned_total_cost | $4,491,382 ($748,564/home) | "Total Costs 4,491,382 748,564" | GRANT Exhibit C, PDF p.41 | ✅ |
+| planned_unit_sales | $1,352,400 (avg $225,400) | "Unit Sales 1,352,400 225,400" | GRANT Exhibit C, PDF p.41 | ✅ |
+| planned_habitat_fundraising | $938,982 ($156,497/home) | "Habitat Fundraising 938,982 156,497" | GRANT Exhibit C, PDF p.41 | ✅ |
+| planned_construction_loan | $2,252,000 | "Construction Loan 2,252,000 375,333" | GRANT Exhibit C, PDF p.41 | ✅ |
+| past_sponsorship_excluded | $125,000 (a minimum) | "The event raised more than $125,000" | NEWS, May 20, 2024 | ✅ |
 | foundation_advance_rate, foundation_deal_cost, foundation_willing | 0% ASSUMPTION / unknown / unknown | none | none | n/a |
 
 ## What changed from the team example (tell Jawad)
@@ -45,7 +52,11 @@ Hassan read it in the source document. Checked 2026-11-07.
    report (FY2026-27 Q1), not FY2025-26 Q1.
 3. **The construction line's maturity (May 2026) has passed.** Its balance is marked
    `verified_current: false`.
-4. **The same city report contradicts itself on the building permit date** (Oct 1, 2026 on p.11 vs
+4. **The grant's release condition (Sec. 4.2) includes a lien-free test** the example left out: 35 days after a
+   recorded Notice of Completion, or 95 days after completion, with no liens; then the City pays within 21 days (Sec. 4.3).
+5. **The approved budget is the real $0 equation** (Exhibit C): $4,491,382 cost = $1,352,400 family sales +
+   $2,200,000 city subsidy + $938,982 Habitat fundraising. Added as `planned_*` facts (planned, not actual).
+6. **The same city report contradicts itself on the building permit date** (Oct 1, 2026 on p.11 vs
    Oct 2025 in Exhibit 2). This is shown as unknown, not resolved.
 
 No personal information: the reports mention "six (6) families" but give no names, and none are recorded here.
@@ -59,8 +70,9 @@ No personal information: the reports mention "six (6) families" but give no name
 | City holdback $220,000 still committed, not paid (at 2026-09-30); $1,980,000 of $2,200,000 paid | Santa Ana Housing Division Quarterly Report FY2026-27 Q1, Tables 8–9 and p.11–12: https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/ | 2026-11-07 |
 | Completion of all six homes scheduled Oct 2026; move-in scheduled Nov 2026 | Same report, Exhibit 2 (p.16) | 2026-11-07 |
 | Building permit date: **sources disagree** (Oct 1, 2026 on p.11 vs Oct 2025 in Exhibit 2) | Same report; shown as unknown | 2026-11-07 |
-| Holdback release condition (Sec. 4.2), assignment consent (Sec. 7.13), $477,762 budget contingency and Jun 2025 planned sales (Exhibit C) | Santa Ana City Council packet, July 16, 2024, Conditional Grant Agreement: https://santa-ana.primegov.com/Portal/Meeting?meetingTemplateId=22247 (not re-read by Hassan) | not re-checked |
-| $125,000 Leaders Build 2024, excluded as already raised | New Santa Ana, May 20, 2024: https://newsantaana.com/habitat-oc-raises-125k-at-the-15th-annual-leaders-build-challenge-in-santa-ana (not re-read by Hassan) | not re-checked |
+| Holdback release condition incl. lien-free test (Sec. 4.2), 21-day payment (Sec. 4.3), assignment needs City consent (Sec. 7.13), Jun 2025 planned sales (Exhibit B) | Conditional Grant Agreement, Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024: https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db | 2026-11-07 |
+| Approved budget: $4,491,382 cost, $1,352,400 family sales (avg $225,400), $2,200,000 city subsidy, $938,982 Habitat fundraising, $477,762 contingency | Same agreement, Exhibit C Project Budget (PDF p.41). Planned at approval, not actual | 2026-11-07 |
+| "More than $125,000" Leaders Build 2024, excluded as already raised | New Santa Ana, May 20, 2024: https://newsantaana.com/habitat-oc-raises-125k-at-the-15th-annual-leaders-build-challenge-in-santa-ana | 2026-11-07 |
 | Months late: 16 | **ASSUMPTION**: Jun 2025 planned sales (grant Exhibit C) to Oct 2026 scheduled completion (FY2026-27 Q1 Exhibit 2) | 2026-11-07 |
 | Months until the city releases the holdback: 6 | **ASSUMPTION**: the closing dates are not public; the city schedule suggests Nov 2026 move-in | 2026-11-07 |
 | Foundation advance rate: 0% | **ASSUMPTION**: a program-related, interest-free advance | n/a |

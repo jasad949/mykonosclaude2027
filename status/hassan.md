@@ -5,11 +5,17 @@ Owned by Hassan only, so it never conflicts. Newest entry first. Update after ev
 what you are doing.
 
 ## Now
-- Working on: waiting on review of PR #9 (case file) and the extraction PR
-- Branch: hassan/evidence (PR #9), hassan/extract
-- Files I'm touching: data/cases/washington.json, docs/project/evidence.md, extract/, status/hassan.md
+- Working on: PR for verified council-packet facts (supersedes #13)
+- Branch: hassan/packet
+- Files I'm touching: data/cases/washington.json, docs/project/evidence.md, status/hassan.md
 
 ## Log
+- 13:25 Downloaded the July 16, 2024 council item (staff report + 4 exhibits) from the city's PrimeGov portal
+  (5 files). Verified in the Conditional Grant Agreement: Sec. 4.2 (adds a lien-free condition the example
+  left out), Sec. 4.3 (City pays within 21 days), Sec. 7.13 (assignment needs City Project Manager consent),
+  Exhibit B (home sales planned Jun 2025), Exhibit C budget ($4,491,382 cost = $1,352,400 sales + $2.2M city
+  + $938,982 Habitat fundraising; $477,762 contingency). News: "raised more than $125,000". Every fact in
+  evidence.md is now verified by me. check_contract PASS, verdicts unchanged; app renders with no exceptions.
 - 13:05 extract/extract_case.py + extract/prompt.md. Sends one document's text + prompt to Claude, writes
   CANDIDATE facts (never into data/cases/). Every quote must appear verbatim in the document and be <=15
   words, else the fact is downgraded to unknown; conflicts become unknown. Verified offline: --dry-run,
