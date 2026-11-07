@@ -49,3 +49,20 @@ Hassan read it in the source document. Checked 2026-11-07.
    Oct 2025 in Exhibit 2). This is shown as unknown, not resolved.
 
 No personal information: the reports mention "six (6) families" but give no names, and none are recorded here.
+
+## For the README: "Sources and assumptions" table (ready to paste)
+
+| Item | Source or assumption | Date checked |
+|---|---|---|
+| Construction line: $2,253,168 drawn at 5.00%, interest-only, maturity extended to May 2026 | Habitat OC FY2025 audited financial statements, Note 7, printed p.19 (report dated Jan 26, 2026): https://habitatoc.org/wp-content/uploads/2026/02/Habitat-for-Humanity-of-OC-Inc.-HFHOC-FS-Audit-Report-2025-Final-1.pdf | 2026-11-07 |
+| Existing line: $1,100,000 commitment at 4.50%, $275,000 drawn (room $825,000 at 2025-06-30; today unknown) | Same audit, Note 7, printed p.19 | 2026-11-07 |
+| City holdback $220,000 still committed, not paid (at 2026-09-30); $1,980,000 of $2,200,000 paid | Santa Ana Housing Division Quarterly Report FY2026-27 Q1, Tables 8–9 and p.11–12: https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/ | 2026-11-07 |
+| Completion of all six homes scheduled Oct 2026; move-in scheduled Nov 2026 | Same report, Exhibit 2 (p.16) | 2026-11-07 |
+| Building permit date: **sources disagree** (Oct 1, 2026 on p.11 vs Oct 2025 in Exhibit 2) | Same report; shown as unknown | 2026-11-07 |
+| Holdback release condition (Sec. 4.2), assignment consent (Sec. 7.13), $477,762 budget contingency and Jun 2025 planned sales (Exhibit C) | Santa Ana City Council packet, July 16, 2024, Conditional Grant Agreement: https://santa-ana.primegov.com/Portal/Meeting?meetingTemplateId=22247 (not re-read by Hassan) | not re-checked |
+| $125,000 Leaders Build 2024, excluded as already raised | New Santa Ana, May 20, 2024: https://newsantaana.com/habitat-oc-raises-125k-at-the-15th-annual-leaders-build-challenge-in-santa-ana (not re-read by Hassan) | not re-checked |
+| Months late: 16 | **ASSUMPTION**: Jun 2025 planned sales (grant Exhibit C) to Oct 2026 scheduled completion (FY2026-27 Q1 Exhibit 2) | 2026-11-07 |
+| Months until the city releases the holdback: 6 | **ASSUMPTION**: the closing dates are not public; the city schedule suggests Nov 2026 move-in | 2026-11-07 |
+| Foundation advance rate: 0% | **ASSUMPTION**: a program-related, interest-free advance | n/a |
+| Contingency remaining, foundation deal cost, foundation willing, city consent to assignment | **unknown**: not public; the tool shows these as evidence still needed | n/a |
+| Candidate facts from `extract/extract_case.py` | Claude output, verified against the document quote by quote by a person before use | n/a |
