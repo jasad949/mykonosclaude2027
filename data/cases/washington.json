@@ -19,11 +19,11 @@
     },
     "months_late": {
       "value": 16, "status": "assumption",
-      "note": "ASSUMPTION. Same method as the example (planned sales Jun 2025 per grant Exhibit C, to scheduled construction completion), updated with the newest city schedule: completion of all six homes Oct 2026 (FY2026-27 Q1 report, Exhibit 2). Jun 2025 to Oct 2026 = 16 months. The example used 11 (May 2026 completion from the FY2025-26 Q1 report)."
+      "note": "ASSUMPTION. Same method as the example (planned home sales complete Jun 2025 per grant Exhibit B schedule, PDF p.40, to scheduled construction completion), updated with the newest city schedule: completion of all six homes Oct 2026 (FY2026-27 Q1 report, Exhibit 2). Jun 2025 to Oct 2026 = 16 months. The example used 11 (May 2026 completion from the FY2025-26 Q1 report)."
     },
     "contingency_remaining": {
       "value": null, "status": "unknown",
-      "note": "Budget contingency was $477,762 (grant Exhibit C); amount left is not public"
+      "note": "Budget contingency was $477,762 (grant Exhibit C, PDF p.41, verified by Hassan); amount left is not public"
     },
     "city_holdback": {
       "value": 220000, "status": "sourced", "as_of": "2026-09-30",
@@ -33,15 +33,15 @@
         "date": "2026-11-03"}
     },
     "holdback_release_condition": {
-      "value": "Construction complete, certificate of occupancy issued, all six buyers closed escrow", "status": "sourced",
-      "note": "Carried over from the team example; not yet re-read by Hassan (council packet PDF is with Jawad).",
-      "source": {"doc": "Conditional Grant Agreement, Santa Ana City Council packet", "locator": "Sec. 4.2",
-        "url": "https://santa-ana.primegov.com/Portal/Meeting?meetingTemplateId=22247",
+      "value": "Construction complete; certificate of occupancy issued; homebuyers have signed the City loan documents and closed escrow; lien-free (35 days after a recorded Notice of Completion, or 95 days after actual completion, with no liens outstanding)", "status": "sourced",
+      "note": "Read by Hassan in the agreement (PDF p.8). Sec. 4.3: once conditions are met, the City disburses within 21 days. The team example left out the lien-free condition.",
+      "source": {"doc": "Conditional Grant Agreement (Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024)", "locator": "Sec. 4.2",
+        "url": "https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db",
         "date": "2024-07-16"}
     },
     "months_until_release": {
       "value": 6, "status": "assumption",
-      "note": "ASSUMPTION carried over from the example. The newest city schedule lists 'New first-time homeowner families move in' and 'Project Complete' in Nov 2026 (FY2026-27 Q1, Exhibit 2), which suggests release could be sooner, but the holdback was unpaid at Sept 30, 2026 and the closing dates are not public."
+      "note": "ASSUMPTION carried over from the example. The newest city schedule lists 'New first-time homeowner families move in' and 'Project Complete' in Nov 2026 (FY2026-27 Q1, Exhibit 2), which suggests release could be sooner, but the holdback was unpaid at Sept 30, 2026 and the closing dates are not public. Floor from the grant agreement: release needs a recorded Notice of Completion plus 35 lien-free days (or 95 days after completion), then up to 21 days to pay (Sec. 4.2(d), 4.3)."
     },
     "existing_line_rate": {
       "value": 0.045, "status": "sourced",
@@ -61,19 +61,39 @@
     "foundation_willing": {"value": null, "status": "unknown"},
     "assignment_consent": {
       "value": null, "status": "unknown",
-      "note": "Grant rights not assignable without City Project Manager written consent (team example; not yet re-read by Hassan)",
-      "source": {"doc": "Conditional Grant Agreement, Santa Ana City Council packet", "locator": "Sec. 7.13",
-        "url": "https://santa-ana.primegov.com/Portal/Meeting?meetingTemplateId=22247",
+      "note": "Developer may assign its rights 'only with the prior written consent of the City Project Manager' (Sec. 7.13, PDF p.13, verified by Hassan). Whether consent would be given is unknown.",
+      "source": {"doc": "Conditional Grant Agreement (Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024)", "locator": "Sec. 7.13",
+        "url": "https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db",
         "date": "2024-07-16"}
     },
     "past_sponsorship_excluded": {
       "value": 125000, "status": "sourced",
-      "note": "Leaders Build 2024; already raised, never counted as new money. Carried over from the team example; not yet re-read by Hassan.",
+      "note": "Leaders Build 2024; already raised, never counted as new money. The article says the event 'raised more than $125,000', so this is a minimum (verified by Hassan).",
       "source": {"doc": "New Santa Ana (news)", "locator": "May 20, 2024 article",
         "url": "https://newsantaana.com/habitat-oc-raises-125k-at-the-15th-annual-leaders-build-challenge-in-santa-ana",
         "date": "2024-05-20"}
     },
 
+    "planned_total_cost": {
+      "value": 4491382, "status": "sourced", "as_of": "2024-07-16",
+      "note": "Budget at approval (planned, not actual): land $1,367,000 + house costs $2,646,620 + contingency $477,762. $748,564 per home.",
+      "source": {"doc": "Conditional Grant Agreement (Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024)", "locator": "Exhibit C Project Budget, PDF p.41", "url": "https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db", "date": "2024-07-16"}
+    },
+    "planned_unit_sales": {
+      "value": 1352400, "status": "sourced", "as_of": "2024-07-16",
+      "note": "What the six families pay in total, planned: average sales price $225,400, 'based on quarterly affordable sales price calculations for 2nd Quarter 2024'.",
+      "source": {"doc": "Conditional Grant Agreement (Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024)", "locator": "Exhibit C Project Budget, PDF p.41", "url": "https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db", "date": "2024-07-16"}
+    },
+    "planned_habitat_fundraising": {
+      "value": 938982, "status": "sourced", "as_of": "2024-07-16",
+      "note": "The planned gap Habitat must raise: $4,491,382 cost - $1,352,400 sales - $2,200,000 city subsidy. $156,497 per home.",
+      "source": {"doc": "Conditional Grant Agreement (Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024)", "locator": "Exhibit C Project Budget, PDF p.41 (Estimated Project Revenue)", "url": "https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db", "date": "2024-07-16"}
+    },
+    "planned_construction_loan": {
+      "value": 2252000, "status": "sourced", "as_of": "2024-07-16",
+      "note": "Planned construction loan in the Sources table; the audit shows $2,253,168 drawn at 2025-06-30.",
+      "source": {"doc": "Conditional Grant Agreement (Exhibit 2 to Item 12, Santa Ana City Council, July 16, 2024)", "locator": "Exhibit C Project Budget, PDF p.41 (Sources)", "url": "https://santa-ana.primegov.com/api/compilemeetingattachmenthistory/historyattachment/?historyId=882d302a-6ca1-4d19-9ae5-2443041228db", "date": "2024-07-16"}
+    },
     "city_grant_total": {
       "value": 2200000, "status": "sourced",
       "source": {"doc": "Santa Ana Housing Division Quarterly Report FY2026-27 Q1", "locator": "Washington Avenue project update, PDF p.11 ('Inclusionary Housing Funds ($2,200,000)')",
