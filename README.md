@@ -24,8 +24,9 @@ claude                     # Claude Code reads CLAUDE.md automatically
 
 Then read, in order: [`CLAUDE.md`](CLAUDE.md) (rules and map), [`NOTES.md`](NOTES.md) (status),
 [`TEAM.md`](TEAM.md) (owners and checkpoints), [`docs/event/`](docs/event/README.md) (hub, slides,
-judges). Work on your own branch and open a pull request into `main`
-([workflow](docs/team/TEAM_WORKFLOW.md)).
+judges). `main` is protected: work on your own branch (`<you>/<task>`), pick up tasks from GitHub
+issues, keep `status/<you>.md` current, and merge by pull request
+([how we collaborate](docs/COLLABORATION.md)).
 
 _The sections below follow [`templates/TEAM-README.md`](templates/TEAM-README.md) and get filled in
 as we build. Remove this "For teammates" section before submitting if it gets in the judges' way._

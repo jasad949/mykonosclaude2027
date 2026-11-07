@@ -11,9 +11,12 @@ three people, someone holds two.
 
 | Name | GitHub | Role(s) | Owns (directories / files) |
 |---|---|---|---|
-| Jawad | jasad949 | _TBD_ (repo owner, integrator for now) | `main`, `CLAUDE.md`, shared config, dependencies, tags |
-| Omar | _TBD_ | _TBD_ | _TBD_ |
-| Hassan | _TBD_ | _TBD_ | _TBD_ |
+| Jawad | jasad949 | _TBD_ (repo owner, integrator for now) | `main` merges, `CLAUDE.md`, `TEAM.md`, `NOTES.md`, `.claude/`, `.github/`, dependencies, tags, `status/jawad.md` |
+| Omar | _TBD_ | _TBD_ | `status/omar.md`, _TBD_ |
+| Hassan | _TBD_ | _TBD_ | `status/hassan.md`, _TBD_ |
+
+Code directories get assigned once the stack is chosen; see the recommended split in
+[`docs/COLLABORATION.md`](docs/COLLABORATION.md) (`engine/`, `app/`, `data/`, `docs/project/`).
 
 Must be named explicitly, early:
 - **Video owner:** the 30-second video decides whether we reach the final. _TBD_
