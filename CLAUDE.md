@@ -70,14 +70,24 @@ before going to the web. Every teammate's Claude reads this file first.
 
 ## Project facts (fill in as the team decides; never invent)
 
-- Lane: _TBD_
-- The one real user and their before/after: _TBD_
-- The one demo path (input → visible result): _TBD_
-- Acceptance checks ("doing X shows Y within Z s"): _TBD_
-- Stack and delivery form: _TBD_
-- Owners: see `TEAM.md`
-- Commands that have actually run successfully here: `scripts/smoke_claude_api.sh` failure paths
-  only (no key yet). Its success path is unverified.
+- Lane: **3 Fund it** (decided Nov 7).
+- User: a nonprofit finance lead (dated case: Habitat OC's six-home Washington Avenue project, Santa Ana).
+  Before: the gap is one fundraising number, mixing permanent need with timing gaps, and the evidence
+  sits in an audit, a city report and a council packet. After: one screen separates permanent need from
+  temporary cash need and produces a funding proposal comparing (A) gift + existing credit with
+  (B) gift + foundation advance, with what is repaid, the savings after costs, and the evidence still needed.
+- Demo path: open the Washington case → see permanent vs temporary need with sources → compare A vs B →
+  change a what-if (line room, consent, deal cost) → draft the proposal.
+- Finding to keep: Santa Ana's agreement prices homes at the *prevailing market* rate (Affordable Housing
+  Agreement §1.1.34), so a buyer-rate buydown does not shrink Habitat's gap.
+- Acceptance checks: `python3 scripts/check_contract.py` prints PASS; `bash scripts/run_demo.sh` opens the
+  screen from a fresh clone; every number shows sourced / ASSUMPTION / unknown; gifts and repayable
+  principal are never summed.
+- Stack: Python 3.9+, standard-library engine, Streamlit UI, Anthropic SDK for extraction only. Contract
+  in `contracts/`. Owners in `TEAM.md`.
+- Commands that have actually run successfully here: `python3 scripts/check_contract.py` (schema PASS;
+  engine not merged yet); pinned `requirements.txt` installs on Python 3.9.6; `scripts/smoke_claude_api.sh`
+  failure paths only.
 
 ## How we work today
 

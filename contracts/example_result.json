@@ -1,0 +1,57 @@
+{
+  "contract_version": "1",
+  "case_id": "washington-2026-11-07",
+  "scenario": "Historical (as documented)",
+  "is_what_if": false,
+  "permanent_need": {
+    "value": 103270, "status": "assumption",
+    "formula": "construction_line_balance * construction_line_rate / 12 * months_late - contingency_remaining",
+    "note": "Upper bound: contingency_remaining unknown, treated as 0"
+  },
+  "temporary_need": {
+    "value": 220000, "status": "sourced",
+    "repaid_from": "City final disbursement after Sec. 4.2 conditions"
+  },
+  "options": [
+    {
+      "id": "gift_plus_existing_credit", "label": "Ordinary gift + existing credit",
+      "money": [
+        {"provider": "Foundation gift", "amount": 103270, "repayable": false},
+        {"provider": "Existing line (4.50%)", "amount": 220000, "repayable": true, "repaid_from": "City final disbursement"}
+      ],
+      "permanent_gap_reduction": 103270, "temporary_cash": 220000, "interest_cost": 4950, "deal_cost": 0,
+      "feasible": "unknown",
+      "blockers": ["Existing line room not verified today (last public: $825,000 on 2025-06-30)"]
+    },
+    {
+      "id": "gift_plus_foundation_advance", "label": "Gift + foundation advance",
+      "money": [
+        {"provider": "Foundation gift", "amount": 103270, "repayable": false},
+        {"provider": "Foundation advance (0.00%)", "amount": 220000, "repayable": true, "repaid_from": "City final disbursement"}
+      ],
+      "permanent_gap_reduction": 103270, "temporary_cash": 220000, "interest_cost": 0, "deal_cost": null,
+      "feasible": "unknown",
+      "blockers": ["Foundation willingness unknown", "City consent to assign (Sec. 7.13) unknown", "Deal cost unknown"]
+    }
+  ],
+  "advance_savings": {"gross": 4950, "deal_cost": null, "net": null, "break_even_deal_cost": 4950},
+  "recommendation": {
+    "verdict": "conditional",
+    "text": "Ask the foundation for a $103,270 gift. Carry the $220,000 timing gap on the existing line unless a foundation advance is offered with all-in costs below $4,950 and repayment from the city's final disbursement is permitted.",
+    "conditions": [
+      "Confirm existing line room >= $220,000",
+      "Foundation willing and terms in writing",
+      "City consent under Sec. 7.13 or foundation accepts Habitat's unsecured promise",
+      "Deal cost < $4,950"
+    ]
+  },
+  "evidence_needed": [
+    "Existing line room today",
+    "Contingency remaining",
+    "Foundation willingness and terms",
+    "City Sec. 7.13 consent",
+    "Months until all six close"
+  ],
+  "assumptions": ["months_late", "months_until_release", "foundation_advance_rate"],
+  "unknowns": ["contingency_remaining", "foundation_deal_cost", "foundation_willing", "assignment_consent"]
+}
