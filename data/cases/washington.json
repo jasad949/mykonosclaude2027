@@ -1,0 +1,115 @@
+{
+  "contract_version": "1",
+  "case_id": "washington-2026-11-07",
+  "title": "Habitat OC - 1921 W. Washington Ave, Santa Ana (6 ownership homes)",
+  "as_of": "2026-11-07",
+  "facts": {
+    "construction_line_balance": {
+      "value": 2253168, "status": "sourced", "as_of": "2025-06-30", "verified_current": false,
+      "note": "Balance at the audit date. The audit says the line was renewed to May 2026; its status after May 2026 is not public.",
+      "source": {"doc": "Habitat OC FY2025 audited financial statements", "locator": "Note 7, printed p.19 (PDF p.21)",
+        "url": "https://habitatoc.org/wp-content/uploads/2026/02/Habitat-for-Humanity-of-OC-Inc.-HFHOC-FS-Audit-Report-2025-Final-1.pdf",
+        "date": "2026-01-26"}
+    },
+    "construction_line_rate": {
+      "value": 0.05, "status": "sourced",
+      "source": {"doc": "Habitat OC FY2025 audited financial statements", "locator": "Note 7, printed p.19 (NeighborWorks Orange County, 5.00%, interest-only)",
+        "url": "https://habitatoc.org/wp-content/uploads/2026/02/Habitat-for-Humanity-of-OC-Inc.-HFHOC-FS-Audit-Report-2025-Final-1.pdf",
+        "date": "2026-01-26"}
+    },
+    "months_late": {
+      "value": 16, "status": "assumption",
+      "note": "ASSUMPTION. Same method as the example (planned sales Jun 2025 per grant Exhibit C, to scheduled construction completion), updated with the newest city schedule: completion of all six homes Oct 2026 (FY2026-27 Q1 report, Exhibit 2). Jun 2025 to Oct 2026 = 16 months. The example used 11 (May 2026 completion from the FY2025-26 Q1 report)."
+    },
+    "contingency_remaining": {
+      "value": null, "status": "unknown",
+      "note": "Budget contingency was $477,762 (grant Exhibit C); amount left is not public"
+    },
+    "city_holdback": {
+      "value": 220000, "status": "sourced", "as_of": "2026-09-30",
+      "note": "Still committed and not expended as of Sept 30, 2026. $1,980,000 of the $2,200,000 grant has been expended (Table 8).",
+      "source": {"doc": "Santa Ana Housing Division Quarterly Report FY2026-27 Q1", "locator": "Table 9 (PDF p.8); Available Funds, PDF p.12 ('1921 W. Washington Project Pre-Commitment')",
+        "url": "https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/",
+        "date": "2026-11-03"}
+    },
+    "holdback_release_condition": {
+      "value": "Construction complete, certificate of occupancy issued, all six buyers closed escrow", "status": "sourced",
+      "note": "Carried over from the team example; not yet re-read by Hassan (council packet PDF is with Jawad).",
+      "source": {"doc": "Conditional Grant Agreement, Santa Ana City Council packet", "locator": "Sec. 4.2",
+        "url": "https://santa-ana.primegov.com/Portal/Meeting?meetingTemplateId=22247",
+        "date": "2024-07-16"}
+    },
+    "months_until_release": {
+      "value": 6, "status": "assumption",
+      "note": "ASSUMPTION carried over from the example. The newest city schedule lists 'New first-time homeowner families move in' and 'Project Complete' in Nov 2026 (FY2026-27 Q1, Exhibit 2), which suggests release could be sooner, but the holdback was unpaid at Sept 30, 2026 and the closing dates are not public."
+    },
+    "existing_line_rate": {
+      "value": 0.045, "status": "sourced",
+      "source": {"doc": "Habitat OC FY2025 audited financial statements", "locator": "Note 7, printed p.19 (Habitat Capital LLC revolving line, 4.50%)",
+        "url": "https://habitatoc.org/wp-content/uploads/2026/02/Habitat-for-Humanity-of-OC-Inc.-HFHOC-FS-Audit-Report-2025-Final-1.pdf",
+        "date": "2026-01-26"}
+    },
+    "existing_line_available": {
+      "value": 825000, "status": "sourced", "as_of": "2025-06-30", "verified_current": false,
+      "note": "$1,100,000 commitment minus $275,000 drawn at 2025-06-30 (derived from two sourced numbers); room today unknown",
+      "source": {"doc": "Habitat OC FY2025 audited financial statements", "locator": "Note 7, printed p.19",
+        "url": "https://habitatoc.org/wp-content/uploads/2026/02/Habitat-for-Humanity-of-OC-Inc.-HFHOC-FS-Audit-Report-2025-Final-1.pdf",
+        "date": "2026-01-26"}
+    },
+    "foundation_advance_rate": {"value": 0.0, "status": "assumption", "note": "ASSUMPTION: a 0% program-related advance."},
+    "foundation_deal_cost": {"value": null, "status": "unknown"},
+    "foundation_willing": {"value": null, "status": "unknown"},
+    "assignment_consent": {
+      "value": null, "status": "unknown",
+      "note": "Grant rights not assignable without City Project Manager written consent (team example; not yet re-read by Hassan)",
+      "source": {"doc": "Conditional Grant Agreement, Santa Ana City Council packet", "locator": "Sec. 7.13",
+        "url": "https://santa-ana.primegov.com/Portal/Meeting?meetingTemplateId=22247",
+        "date": "2024-07-16"}
+    },
+    "past_sponsorship_excluded": {
+      "value": 125000, "status": "sourced",
+      "note": "Leaders Build 2024; already raised, never counted as new money. Carried over from the team example; not yet re-read by Hassan.",
+      "source": {"doc": "New Santa Ana (news)", "locator": "May 20, 2024 article",
+        "url": "https://newsantaana.com/habitat-oc-raises-125k-at-the-15th-annual-leaders-build-challenge-in-santa-ana",
+        "date": "2024-05-20"}
+    },
+
+    "city_grant_total": {
+      "value": 2200000, "status": "sourced",
+      "source": {"doc": "Santa Ana Housing Division Quarterly Report FY2026-27 Q1", "locator": "Washington Avenue project update, PDF p.11 ('Inclusionary Housing Funds ($2,200,000)')",
+        "url": "https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/",
+        "date": "2026-11-03"}
+    },
+    "city_funds_expended": {
+      "value": 1980000, "status": "sourced", "as_of": "2026-09-30",
+      "source": {"doc": "Santa Ana Housing Division Quarterly Report FY2026-27 Q1", "locator": "Table 8 (PDF p.8)",
+        "url": "https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/",
+        "date": "2026-11-03"}
+    },
+    "construction_line_maturity": {
+      "value": "May 2026", "status": "sourced",
+      "note": "Already past as of the case date. Whether the line was renewed again or repaid is not public.",
+      "source": {"doc": "Habitat OC FY2025 audited financial statements", "locator": "Note 7, printed p.19",
+        "url": "https://habitatoc.org/wp-content/uploads/2026/02/Habitat-for-Humanity-of-OC-Inc.-HFHOC-FS-Audit-Report-2025-Final-1.pdf",
+        "date": "2026-01-26"}
+    },
+    "scheduled_construction_completion": {
+      "value": "2026-10", "status": "sourced",
+      "note": "City schedule entry, not a confirmed completion. Same exhibit lists 'Final Inspections & Temporary CofO' in Oct 2026.",
+      "source": {"doc": "Santa Ana Housing Division Quarterly Report FY2026-27 Q1", "locator": "Exhibit 2, PDF p.16 ('Construction completion of all six homes', Oct 26)",
+        "url": "https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/",
+        "date": "2026-11-03"}
+    },
+    "scheduled_move_in": {
+      "value": "2026-11", "status": "sourced",
+      "note": "City schedule entry for a month after the report period; whether all six buyers have closed escrow is not public.",
+      "source": {"doc": "Santa Ana Housing Division Quarterly Report FY2026-27 Q1", "locator": "Exhibit 2, PDF p.16 ('New first-time homeowner families move in', Nov 26)",
+        "url": "https://santa-ana.gov/documents/housing-division-quarterly-report-fy-2026-27-q1/",
+        "date": "2026-11-03"}
+    },
+    "building_permit_issued": {
+      "value": null, "status": "unknown",
+      "note": "Sources disagree within the same report: the project update (PDF p.11) says 'Building permits were issued on October 1, 2026', while Exhibit 2 (PDF p.16) lists 'Building permit issued' in Oct 2025 followed by framing, dry-in and interiors in 2026. Not resolved; ask the city or Habitat OC."
+    }
+  }
+}
