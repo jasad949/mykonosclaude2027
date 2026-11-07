@@ -1,7 +1,16 @@
 # Status notes
 
-Short running record: completed, known defects, test results, next priority. **Newest first.**
-Everyone (and every Claude session) adds an entry after each meaningful step, with a time and name.
+Team-level summary: decisions, checkpoint results, known defects, next priority. **Newest first.**
+Owned by the integrator and updated at checkpoints. Day-to-day personal status goes in
+`status/<you>.md` (no conflicts that way); tasks are GitHub issues.
+
+## 2026-11-07 10:50 (Jawad): collaboration setup
+
+- GitHub: `main` protected (PR required, 0 approvals, no force-push), squash-only merges, branches
+  auto-deleted after merge, wiki off, workflow labels added.
+- Added PR template, task issue template, `status/` files, `docs/COLLABORATION.md`, and a
+  SessionStart hook that prints repo state into every Claude session. Pipe-tested; it first fires
+  in a newly started session.
 
 ## 2026-11-07 10:45 (Jawad): knowledge base assembled
 

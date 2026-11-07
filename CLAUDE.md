@@ -9,10 +9,13 @@ before going to the web. Every teammate's Claude reads this file first.
 
 ## Before you do anything in this repo
 
-1. `git fetch origin` and compare with `origin/main` (`git log --oneline HEAD..origin/main`).
-   Teammates push all day; a local copy is stale within the hour.
-2. Read `NOTES.md` (status, newest first) and `TEAM.md` (who owns what).
-3. If files changed under you, re-read them before editing. Never discard or overwrite changes you
+1. A SessionStart hook prints the repo state (branch, commits behind `main`, open PRs, open
+   tasks). If it didn't run, do it yourself: `bash scripts/session_start.sh`.
+2. Read `NOTES.md` (team summary), `status/*.md` (what each teammate is doing right now) and
+   `TEAM.md` (who owns which files). Work comes from GitHub issues: `gh issue list`.
+3. Never edit on `main` (it is protected). Start a branch: `git switch main && git pull --ff-only
+   && git switch -c <person>/<task>`.
+4. If files changed under you, re-read them before editing. Never discard or overwrite changes you
    didn't make. Ask instead.
 
 ## The event (verified Nov 7; details in `docs/event/`)
@@ -95,15 +98,19 @@ before going to the web. Every teammate's Claude reads this file first.
   person confirm anything consequential. The UI claims only what actually happened.
 - Use event-credit keys with spend limits. Check model names and prices in current docs.
 
-## Shared repository (details: `docs/team/TEAM_WORKFLOW.md`)
+## Shared repository (procedures: `docs/COLLABORATION.md`)
 
-- Each person works on their own branch (`feat/<name>`) in their own checkout, and never in the
-  same folder as another Claude session. Merge to `main` by pull request at checkpoints.
-- Edit only files you own (see `TEAM.md`). Shared files (`CLAUDE.md`, dependencies, the interface
-  contract) change only in their own commit, with the owner's agreement.
-- Commit every working increment and push at least hourly.
-- **Keep `NOTES.md` current:** after each meaningful step, add what was done and verified, what's
-  broken, and what's next. This is how teammates' Claudes stay in sync.
+- One branch per task (`<person>/<task>`), one Claude session per folder (use `git worktree` for
+  a second session). `main` is protected: changes land by squash-merged pull request only.
+- Edit only files you own (see `TEAM.md`). Shared files (`CLAUDE.md`, `TEAM.md`, `NOTES.md`, the
+  interface contract, dependencies, `.claude/settings.json`) change only in their own PR, with the
+  integrator's agreement.
+- Before opening a PR: `git fetch origin && git merge origin/main`. Keep PRs small; merge within
+  about an hour of branching. Never force-push or reset shared branches.
+- **Keep your own `status/<person>.md` current** (newest first: working on, branch, files touched,
+  done and verified, blocked). It's how teammates' Claudes know what you're doing. Don't edit
+  another person's status file.
+- Tasks are GitHub issues with one owner each; reference them in PRs (`Closes #12`).
 - Tag known-good states of `main` as `demo-<n>`. After feature freeze, fix demo-path bugs only.
 - The repo is public: check no personal information and no keys are in it or its history.
 
@@ -111,7 +118,8 @@ before going to the web. Every teammate's Claude reads this file first.
 
 | Path | What |
 |---|---|
-| `NOTES.md`, `TEAM.md` | Live status and owners/checkpoints. Read first |
+| `NOTES.md`, `status/*.md`, `TEAM.md` | Team summary, each person's live status, owners/checkpoints. Read first |
+| `docs/COLLABORATION.md` | Branching, PRs, delegation via issues, worktrees, recovery |
 | `docs/event/` | Hub snapshot, kickoff-slides summary, the organizers' README and CLAUDE.md verbatim, provenance |
 | `docs/challenge-brief.pdf`, `docs/kickoff-slides.pdf` | The 3-page brief and the 35 kickoff slides |
 | `docs/background.md`, `docs/glossary.md` | The $0 equation, the laws, the terms |
@@ -125,6 +133,7 @@ before going to the web. Every teammate's Claude reads this file first.
 | `templates/TEAM-README.md` | What our final README must cover |
 | `docs/team/` | Our pre-event playbook, team workflow and research (lower precedence) |
 | `scripts/smoke_claude_api.sh` | One real Claude API call to check a key works |
+| `scripts/session_start.sh` | Repo-state report run by the SessionStart hook |
 
 ## Communication
 
